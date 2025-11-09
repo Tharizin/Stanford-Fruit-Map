@@ -35,7 +35,6 @@ export const fruits = [
   { type: 'Trifoliate Orange', lat: 37.426126578521156, lng: -122.17474280236627 },
   { type: 'Trifoliate Orange', lat: 37.42127636390835, lng: -122.16539077054959 },
 
-
   { type: 'Kumquat', lat: 37.42706464758015, lng: -122.1690954238442 },
   { type: 'Kumquat', lat: 37.4270470080672, lng: -122.16903784965835 },
   { type: 'Kumquat', lat: 37.42751922912981, lng: -122.16888255445512 },

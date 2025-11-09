@@ -1,6 +1,6 @@
 
 export const fruitInfo = {
-  orange: {
+  Orange: {
     image: 'images/orange_tree.jpg',
     ripening: 'Winter–early spring',
     description: `
@@ -15,7 +15,7 @@ export const fruitInfo = {
       the sky’s the limit!
     `
   },
-  loquat: {
+  Loquat: {
     image: 'images/loquat_tree.png',
     ripening: 'Late spring–early summer',
     description: `
@@ -35,7 +35,7 @@ export const fruitInfo = {
       pork marinade!
     `
   },
-  fig: {
+  Fig: {
     image: 'images/fig_tree.jpeg',
     ripening: 'Late summer through fall',
     description: `
