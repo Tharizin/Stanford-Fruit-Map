@@ -23,7 +23,10 @@ export const icons = {
   "Passion": L.icon({ iconUrl: 'icons/passion.png', iconSize: [60,60], iconAnchor: [30,30], popupAnchor: [0,-60] }),
   "Pomegranate": L.icon({ iconUrl: 'icons/pomegranate.png', iconSize: [60,60], iconAnchor: [30,30], popupAnchor: [0,-60] }),
   "Arbutus": L.icon({ iconUrl: 'icons/arbutus.png', iconSize: [60,60], iconAnchor: [30,30], popupAnchor: [0,-60] }),
-  "Fall": L.icon({ iconUrl: 'icons/fall.png', iconSize: [60,60], iconAnchor: [30,30], popupAnchor: [0,-60] })
+  "Fall": L.icon({ iconUrl: 'icons/fall.png', iconSize: [60,60], iconAnchor: [30,30], popupAnchor: [0,-60] }),
+  "Asian": L.icon({ iconUrl: 'icons/asian.png', iconSize: [60,60], iconAnchor: [30,30], popupAnchor: [0,-60] }),
+  "Cherry": L.icon({ iconUrl: 'icons/cherry.png', iconSize: [60,60], iconAnchor: [30,30], popupAnchor: [0,-60] }),
+  "Trifoliate": L.icon({ iconUrl: 'icons/trifoliate.png', iconSize: [60,60], iconAnchor: [30,30], popupAnchor: [0,-60] })
 };
 
 // Alias Map
@@ -37,7 +40,9 @@ export const iconAlias = {
   "Canary Island Date Palm": "Canary",
   "Passionfruit": "Passion",
   "Strawberry Tree": "Arbutus",
-  "Fall Loquat": "Fall"
+  "Fall Loquat": "Fall",
+  "Asian Pear": "Asian",
+  "Trifoliate Orange": "Trifoliate"
 };
 
 export function initializeMap() {
