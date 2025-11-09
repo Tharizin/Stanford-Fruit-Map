@@ -129,6 +129,7 @@ export const fruits = [
   { type: 'hachiya persimmon', lat: 37.42500426328591, lng: -122.16805903010118 },
   { type: 'hachiya persimmon', lat: 37.42137855703106, lng: -122.16528179499714 },
   { type: 'hachiya persimmon', lat: 37.42200353135018, lng: -122.16581024110184 },
+  { type: 'hachiya persimmon', lat: 37.420821846261255, lng: -122.15812919445355 },
 
   { type: 'fuyu persimmon', lat: 37.42201356114258, lng: -122.16580656124283 },
   { type: 'fuyu persimmon', lat: 37.425740550270326, lng: -122.1620109878485 },
