@@ -196,10 +196,12 @@ Apple: {
 
  "Natal Plum": {
     image: 'images/natal_plum.jpg',
-    ripening: 'Late spring–summer',
-    months: ['june', 'july', 'august'],
+    ripening: 'Somewhat year round',
+    months: ['july', 'august', 'september', 'october', 'november', 'december'],
     description: `
-      Native to South Africa, the Natal plum is a hardy, immensely thorny shrub that produces
+      A delightfully obscure fruit, the natal plum is a prizewinner in the flavor department. 
+      It’s also a prizewinner in the thorns department, second perhaps only to the trifoliate
+      orange. It is native to South Africa, and is a hardy shrub that produces
       small, bright red fruits. Use caution, because unripe fruits and
       all other parts of the plant are toxic. The flavor is quite nice, similar to a sweet cranberry
       with the texture of a perfectly ripe strawberry. Those with a latex allergy are advised to avoid
@@ -208,5 +210,145 @@ Apple: {
     usage: `
       Eat fresh off the tree, or use in jams, jellies, and desserts.
     `,
+},
+
+Passionfruit: {
+    image: 'images/passionfruit_vine.jpg',
+    ripening: 'Late fall? Winter?',
+    months: ['november', 'december', 'january'],
+    description: `
+      While ornamental varieties are common across campus, this vine is the only fruiting 
+      passionfruit that I have discovered. As of fall 2025, I have no idea when these
+      actually ripen. They are ready to harvest when purple and a bit shriveled-looking,
+      but they seem to hang onto the plant, hard as rocks, for a very long time. I was 
+      lucky enough to find one that had ripened and fallen to the ground, and I can attest 
+      that once ready, their sharp flavor is divine. Contrary to a few of my friends’ 
+      opinions, the black seeds within the tangy yellow flesh of the passionfruit are
+      quite edible, and provide a nice crunch and fiber boost. 
+      `,
+    usage: `
+      Enjoy by breaking open 
+      the wrinkled purple fruit (do not attempt if still green – it’s not ready yet!) 
+      and scooping out the jelly-like yellow filling. This fruit is delicious fresh, 
+      blended into drinks, or incorporated into desserts such as pavlova.
+    `,
+},
+"Lemon": {
+    image: 'images/lemon_tree.jpg',
+    ripening: 'Winter',
+    months: ['december', 'january', 'february'],
+    description: `
+      The bright yellow lemon is a staple of Bay Area front yards, and the many trees on 
+      campus are certainly just as underutilized. Botanically a berry, lemons are native 
+      to Asia, and contain a high amount of vitamin C and citric acid, the source of their
+       signature sourness and cleaning capabilities. Lemons can technically be productive 
+       year-round, although winter is a typical time of ripeness. Shoutout to the Columbae 
+       residents for actually using the fruits produced by their spectacularly productive 
+       lemon! 
+    `,
+    usage: `
+      When life gives you lemons, make… Well, you know that one already. You can 
+       also make all sorts of tasty desserts like lemon bars, add to myriad savory dishes
+        (garlicky lemon pasta, anyone?), or even use the juice as an element of a natural 
+        cleaner.
+    `,
+  },
+  "Lime": {
+    image: 'images/lime_tree.webp',
+    ripening: 'Winter',
+    months: ['december', 'january', 'february'],
+    description: `
+      A great scurvy-preventer, limes are a staple of any citrus lover’s repertoire. 
+      Like lemons, this sour green fruit originated in Asia, and the variety found on
+       campus is most likely the Persian lime (sorry, no key lime pies possible here.)
+        Limes are quite versatile and have numerous applications in both sweet and savory
+         dishes..
+    `,
+  usage: `
+    Make margheritas, ceviche, meat marinades, squeeze over your bowl of Wilbur
+    dining phở, combine with cilantro and add to rice; there’s really no limit.
+  `
+},
+
+Pomelo: {
+    image: 'images/pomelo_lemon.jpg',
+    ripening: 'Winter',
+    months: ['december', 'january', 'february'],
+    description: `
+      Stanford’s pomelo trees would be more accurately referred to as “giant lemons.” 
+      These colossal citrus fruits are not the magnificent sweet pink beauties I purchase
+      almost monthly from H-mart, they are quite sour and not pleasant to eat plain. The 
+      reason for the existence of the po-lemon-o is actually quite interesting: citrus 
+      fruits hybridize like crazy. Indeed, if you were to plant a seed from a citrus fruit 
+      you particularly enjoyed, the chances that the resulting plant would produce that 
+      same fruit are quite low. This is why most commercially grown citrus comes from 
+      grafting rather than plants grown from seed. However, if you need a large quantity 
+      of lemon juice, this might be your best bet.
+    `,
+    usage: `
+  Use the juice in place of lemon juice, zest over desserts, or candy the plentiful pith 
+  of these well-insulated fruits.
+`
+},
+"Fall Loquat": {
+    image: 'images/fall_loquat.jpg',
+    ripening: 'Fall',
+    months: ['october', 'november'],
+    description: `
+    This is one of the most enigmatic fruits I’ve found. It is most certainly a loquat,
+     but it lacks many characteristics of normal loquats. For example, it flowers in the 
+     spring and bears fruit in the fall, the complete opposite of the standard variety, 
+     and has very small fruits with a mucilaginous texture. The leaves are also a bit more 
+     sharply toothed, and the green to rusty-colored fruits have a very sweet, floral flavor. 
+     Try as I might, I have found no other accounts of this fruit online, perhaps because 
+     it is easily eclipsed in terms of deliciousness by its well-known spring-ripening
+      counterpart. 
+  `,
+  usage: `
+    I generally just eat these fresh off the tree, spitting out the many 
+    small seeds as I go. They are a welcome snack if you happen to be behind MemChu. 
+    I don’t know what else you can use them for, presumably baking. Email me if you
+    find any intriguing use cases.
+    `,
+},
+"Strawberry Tree": {
+    image: 'images/strawberry_tree.webp',
+    ripening: 'Fall, early winter',
+    months: ['october', 'november', 'december'],
+    description: `
+      To be perfectly honest, I created this map with the full intention of omitting
+      this fruit. For some reason I find it immensely unpalatable (but it’s not all
+      about me, is it?), and it’s so ubiquitous around campus that it just seemed
+      superfluous to include it. However, other people seem to enjoy these sunset
+      -colored, gently spiked orbs dotting our campus, so I went ahead and gave the 
+      people what they wanted. The tree is in the same family as blueberries, a fact
+      that is obvious when observing its showers of bell-shaped blooms, and is 
+      native to the Mediterranean Basin. Its flesh is soft and custardy, with a delicate
+      floral taste reminiscent of guava and apricot. They are very soft and easily 
+      bruised, so take care when transporting them.
+    `,
+    usage: `
+      While not the most exciting fruit, the berries can be used in jams, jellies,
+      or even fermented into a unique liqueur. The tree's bark and leaves also have
+      traditional medicinal uses.
+    `,
+},
+"Kousa Dogwood": {
+    image: 'images/kousa_dogwood.jpg',
+    ripening: 'Late summer–fall',
+    months: ['september', 'october'],
+    description: `
+      A popular ornamental, the kousa dogwood is originally from Asia, grown for its 
+      attractive fruits in addition to the flowers dogwoods are known for. I find the
+      fruit to be more of a novelty than a particularly tasty treat, as their strange
+      and bumpy appearance gives them the air of being from another planet. However 
+      they are still perfectly edible, and if one sucks the soft, custardy flesh out
+      from under the bitter, grainy skin, they will notice notes of persimmon, guava, 
+      and earthiness.
+`,    usage: `
+      Discard both the seeds and the skin, they are not pleasant to eat. Eat fresh,
+      add to desserts, infuse into dressings, or make jam.
+    `,
 }
 };
+

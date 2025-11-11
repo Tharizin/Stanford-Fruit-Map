@@ -45,7 +45,15 @@ export const iconAlias = {
 };
 
 export function initializeMap() {
-  const map = L.map("map").setView([37.424, -122.166], 16);
+  const map = L.map("map", {
+    zoomControl: false  // Disable default zoom control
+  }).setView([37.424, -122.166], 16);
+  
+  // Add zoom control in a different position
+  L.control.zoom({
+    position: 'bottomleft'
+  }).addTo(map);
+  
   L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", { maxZoom: 19 }).addTo(map);
   return map;
 }
