@@ -41,7 +41,8 @@ export const iconAlias = {
   "Strawberry Tree": "Arbutus",
   "Fall Loquat": "Fall",
   "Asian Pear": "Asian",
-  "Trifoliate Orange": "Trifoliate"
+  "Trifoliate Orange": "Trifoliate",
+  "Japanese Quince": "Quince"
 };
 
 export function initializeMap() {

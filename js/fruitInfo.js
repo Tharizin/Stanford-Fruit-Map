@@ -349,6 +349,130 @@ Pomelo: {
       Discard both the seeds and the skin, they are not pleasant to eat. Eat fresh,
       add to desserts, infuse into dressings, or make jam.
     `,
+},
+"Plum": {
+    image: 'images/plum_tree.jpg',
+    ripening: 'Summer–early fall',
+    months: ['august', 'september'],
+    description: `The variety of plums to be had around campus is truly wonderful. 
+    One of the most common varieties are the deep red-purple ornamentals that can 
+    be found throughout campus. Their rosy fruits are roughly ping-pong ball sized
+    and very tasty, though they are almost impossible to spot amidst dense foliage
+    of the exact same color. Even tastier than these are the red and green (they might 
+    be dwarf green gages) plums found next to Hillel, the Knoll, or the Polynesian sculpture garden. Growing 
+    to the size of large marbles, these gems are addictive bursts of flavor during
+    late spring to early summer. There’s also a gorgeous specimen next to Snu that
+    produces larger yellow fruits with a scarlet blush, although I haven’t had the 
+    pleasure of tasting them yet. 
+    `,
+    usage: `
+    Consume fresh from the tree, dry to make prunes, ferment into wine, make jam or 
+    chutney, or include in desserts.
+  `
+ },
+ "Prickly Pear": {
+    image: 'images/prickly_pear.webp',
+    ripening: 'Summer',
+    months: ['july', 'august'],
+    description: `
+    On Halloween of my sophomore year at Stanford (2024), I went to Synergy’s Halloween
+     Party. The fire alarm was pulled after 30 minutes, but fortunately I didn’t leave
+    empty-handed – the co-op boasts a large and stately prickly pear cactus in the front
+    yard, and the vibrant magenta fruits (tunas in Spanish) are absolutely delicious.
+    Just take great care to skin them well, as they have tiny little spines called 
+    glochids that will burrow deep into your skin, causing itching and pain. You can 
+    also burn them off over an open flame, or roll them in sand like the Tequesta tribe 
+    of FL. There are actually other fruit trees and plants at Synergy, but I haven’t 
+    included them because they are in the co-op’s designated garden. Make a friend there
+    before asking to eat their fruit. As for the one other prickly pear on this map, the
+    fruits are not nearly as tasty as the Synergy one. I ate one my freshman year and 
+    was rewarded with numerous rock-hard seeds, lackluster flavor, and spines in my 
+    mouth for days. Eat at your own risk.
+    `,
+    usage: `
+    These are a common ingredient in Mexican cuisine, eaten fresh, made into candies and
+    juices, included in alcoholic beverages, or added to salads. The pads of the cactus
+    are also edible (nopales), but I would suggest leaving them alone to avoid destroying
+    the plant.
+  `
+ },
+ "Kumquat": {
+    image: 'images/kumquat_tree.jpg',
+    ripening: 'Winter',
+    months: ['december', 'january', 'february'],
+    description: `
+    Most people I meet seem to love the humble kumquat, but try as I might, I’ve never 
+    found them palatable. However, to the many kumquat enjoyers, these fruits are bright
+     and tangy citrus treats, made all the better due to the fact they don’t need to be
+      peeled. They are a traditional symbol of wealth and prosperity during Chinese New 
+      Year, and are high in vitamins and fiber.
+    `,
+    usage: `
+    Eat the whole grape-sized fruit fresh, skin and all. You can also make marmalade, 
+    add some zing to salads, candy, or include in beverages. `
+ },
+
+"Quince": {
+    image: 'images/quince_tree.jpg',
+    ripening: 'Late fall',
+    months: ['october', 'november', 'december'],
+    description: `
+    Quinces are delightfully aromatic yellow fruits, related to apples and native to Iran.
+    They can get much larger than apples, sometimes reaching a kilogram in weight. As far
+    as I know, we have two kinds of quince on campus, an ornamental Japanese variety that 
+    is very hard and sour, and a much larger, softer type that I believe is the ‘Cooke’s 
+    Jumbo’ variety. I have yet to cook them, but they apparently develop a rosy color when
+    prepared due to the release of anthocyanin.
+    `,
+    usage: `
+  There seems to be a lot of negative propaganda around uncooked quinces. Somebody on Reddit
+  proclaimed, “I bit into a raw quince once. ONCE.” The Spike Jones song “Now Laugh” has the
+  memorable line, “My brother climbed a quince tree/ To pick himself a quince. /He ate the
+  quince and puckered up, /And we ain’t seen brother since!” However, while perhaps not the
+  most delectable thing to consume fresh from the tree, they are perfectly edible and very
+  nice to gnaw on. With that said, where the fruit truly shines is when cooked into firm
+  quince jelly, added to give complexity to applesauce or pie, or used in making kibbeh.
+`
+},
+"Asian Pear": {
+    image: 'images/asian_pear.jpg',
+    ripening: 'Late summer, very early fall',
+    months: ['august', 'september'],
+    description: `
+  Alas, when I discovered this tree it had been completely stripped save for one tiny malformed
+fruit, the only clue I had as to what it was (it still tasted great). Also called sand pears,
+  Asian pears are very round, sand-colored, and incredibly juicy and crisp, like if a 
+  honeycrisp apple carried more water. They have a gloriously light and sweet flavor, floral
+  with notes of honey, and are often sold individually wrapped in foam due to their tendency
+  to bruise. Interestingly, they contain meat-tenderizing enzymes, which makes them a common 
+  ingredient in marinades for things including Korean bulgogi beef.     `,
+    usage: `
+These pears are best directly from the tree (if you haven’t been beaten to them!), but are
+ also great in marinades or sliced into salads.
+  `
+},
+
+"Trifoliate Orange": {
+    image: 'images/trifoliate_orange.jpg',
+    ripening: 'Fall, winter',
+    months: ['november', 'december', 'january'],
+    description: `
+It is a topic of debate as to whether the trifoliate orange belongs to the citrus genus or not. While it does share characteristics with regular oranges and lemons, this unusual plant has deciduous triplets of compound leaves (hence “trifoliate”) and bears fuzzy fruits, in contrast with true citrus. However, it’s similar enough to support grafting, and its cold-hardiness makes it a great rootstock for more delicate citrus. };
+`,
+    usage: `
+The “oranges” are somewhat bitter and quite sour, and the high concentration of seeds makes them a bit challenging to eat. They have an unique flavor though, and are reportedly good in marmalade or turned into a powdered condiment. I bet they would make an interesting lemonade-style beverage as well.
+`
+},
+ 
+"Grape": {
+    image: 'images/grape_vine.jpg',
+    ripening: 'Late summer–early fall',
+    months: ['september', 'october'],
+    description: `
+    The grapes on campus are not the crisp, seedless variety you can pick up at the grocery store, but are still quite deserving of our appreciation. They are likely just common wine grapes, and can be eaten raw as well as being turned into wine. Find them decking the awning of Kingscote Gardens as well as on the fence by Hillel, recognizable by their distinct green leaves that turn a lovely shade of red as the weather cools.
+    `,
+    usage: `
+ Eat fresh out of hand (the seeds are perfectly edible and add a nice crunch), ferment into wine (obviously), concoct jams and jellies, dry to make raisins, or add to both sweet and savory dishes. The leaves are also edible and a staple of Mediterranean and Middle Eastern cuisine. I’m particularly fond of dolma, or stuffed grape leaves.
+  `
 }
 };
-

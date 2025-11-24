@@ -18,6 +18,9 @@ export const fruits = [
   { type: 'Orange', lat: 37.42396881980576, lng: -122.16581333577238 },
   { type: 'Orange', lat: 37.42697338177819, lng: -122.17116873771535 },
   { type: 'Orange', lat: 37.42242186536661, lng: -122.16007302944509 },
+  { type: 'Orange', lat: 37.42429046504758, lng: -122.16922806440745 },
+  { type: 'Orange', lat: 37.42570692513744, lng: -122.18086683373654 },
+  { type: 'Orange', lat: 37.42377842890092, lng: -122.17293354110184 },
 
   { type: 'Lemon', lat: 37.42294344817035, lng: -122.16883372556157 },
   { type: 'Lemon', lat: 37.427650817567596, lng: -122.16891192117446 },
@@ -36,6 +39,10 @@ export const fruits = [
   { type: 'Lemon', lat: 37.42174386389667, lng: -122.15953618220632 },
   { type: 'Lemon', lat: 37.42523148653049, lng: -122.1616146062331 },
   { type: 'Lemon', lat: 37.42198829727892, lng: -122.15958987301427 },
+  { type: 'Lemon', lat: 37.4244608724669, lng: -122.16917442022667 },
+  { type: 'Lemon', lat: 37.425704791874864, lng: -122.18083867104654 },
+  { type: 'Lemon', lat: 37.42571012021967, lng: -122.1808929852747 },
+  { type: 'Lemon', lat: 37.42373316405544, lng: -122.17297779755098 },
 
   { type: 'Lime', lat: 37.42506849021938, lng: -122.16153208224652 },
 
@@ -65,6 +72,8 @@ export const fruits = [
   { type: 'Loquat', lat: 37.42414021499962, lng: -122.16572679619307 },
   { type: 'Loquat', lat: 37.42104641644832, lng: -122.17367389396074 },
   { type: 'Loquat', lat: 37.42455537565893, lng: -122.16595946984052 },
+  { type: 'Loquat', lat: 37.424934595115324, lng: -122.16842536440744 },
+  { type: 'Loquat', lat: 37.43728772296064, lng: -122.16874421165411 },
 
   { type: 'Fall Loquat', lat: 37.42655209428253, lng: -122.17062602227958 },
   { type: 'Fall Loquat', lat: 37.42653505403401, lng: -122.17054488546201 },
@@ -86,9 +95,6 @@ export const fruits = [
 
   { type: 'Cherry', lat: 37.42303293013097, lng: -122.16851731167544 },
   { type: 'Cherry', lat: 37.42306725305208, lng: -122.1684686819365 },
-
-  { type: 'Hollyleaf Cherry', lat: 37.421548154013045, lng: -122.17312107291544 },
-  { type: 'Hollyleaf Cherry', lat: 37.42123755681517, lng: -122.17311592702151 },
 
   { type: 'Brush Cherry', lat: 37.4282834563917, lng: -122.17101691882813 },
   { type: 'Brush Cherry', lat: 37.42826159918318, lng: -122.17093612259852 },
@@ -113,6 +119,7 @@ export const fruits = [
   { type: 'Apple', lat: 37.421956665032496, lng: -122.17241025898838 },
   { type: 'Apple', lat: 37.422333125377214, lng: -122.1656582824954 },
   { type: 'Apple', lat: 37.42834267143247, lng: -122.17495613434171 },
+  { type: 'Apple', lat: 37.42431446383271, lng: -122.17982109999734 },
 
   { type: 'Fig', lat: 37.4268705333791, lng: -122.16355535473778 },
   { type: 'Fig', lat: 37.42422260878312, lng: -122.17396729820906 },
@@ -130,6 +137,8 @@ export const fruits = [
   { type: 'Feijoa', lat: 37.423834396895295, lng: -122.16608623081964 },
   { type: 'Feijoa', lat: 37.424004482985566, lng: -122.16589105904559 },
   { type: 'Feijoa', lat: 37.42382753858025, lng: -122.16595669203187 },
+  { type: 'Feijoa', lat: 37.42512737482181, lng: -122.16529629998938 },
+  { type: 'Feijoa', lat: 37.42520405735134, lng: -122.16561816507404 },
 
   { type: 'Kousa Dogwood', lat: 37.42792926580345, lng: -122.16963270484162 },
 
@@ -147,12 +156,11 @@ export const fruits = [
   { type: 'Natal Plum', lat: 37.42536218678804, lng: -122.16749545894034 },
 
   { type: 'Prickly Pear', lat: 37.41932480649855, lng: -122.1690191841805 },
-
-  { type: 'Canary Island Date Palm', lat: 37.42248070064034, lng: -122.16889028356712 },
-  { type: 'Canary Island Date Palm', lat: 37.4230448770786, lng: -122.16755786018696 },
+  { type: 'Prickly Pear', lat: 37.435972593305316, lng: -122.17088462944507 },
 
   { type: 'Quince', lat: 37.42122907956953, lng: -122.16290601835178 },
   { type: 'Quince', lat: 37.42737319376413, lng: -122.17505854110186 },
+  { type: 'Japanese Quince', lat: 37.422010463890054, lng: -122.16539921165412 },
 
   { type: 'Grape', lat: 37.421916003818, lng: -122.16790790636371 },
   { type: 'Grape', lat: 37.42382377366111, lng: -122.17287342038557 },
@@ -168,6 +176,11 @@ export const fruits = [
   { type: 'Pomegranate', lat: 37.4213876318665, lng: -122.16523246521125 },
   { type: 'Pomegranate', lat: 37.422400563880345, lng: -122.16007571165412 },
   { type: 'Pomegranate', lat: 37.4272347431511, lng: -122.17509408037164 },
+  { type: 'Pomegranate', lat: 37.425671255195944, lng: -122.17564826440743 },
+  { type: 'Pomegranate', lat: 37.42571811530093, lng: -122.17640497789897 },
+  { type: 'Pomegranate', lat: 37.427061455057526, lng: -122.16266296440745 },
+  { type: 'Pomegranate', lat: 37.42708701524913, lng: -122.16280780369556 },
+  { type: 'Pomegranate', lat: 37.422043847196, lng: -122.17106858590259 },
 
   { type: 'Strawberry Tree', lat: 37.42662636749165, lng: -122.16468653122743 },
   { type: 'Strawberry Tree', lat: 37.42587366552967, lng: -122.16628155029996 },
@@ -175,5 +188,20 @@ export const fruits = [
   { type: 'Strawberry Tree', lat: 37.425473196735986, lng: -122.16620704945157 },
   { type: 'Strawberry Tree', lat: 37.425027468448725, lng: -122.16655708683139 },
   { type: 'Strawberry Tree', lat: 37.424821378128506, lng: -122.1665872624676 },
-  { type: 'Strawberry Tree', lat: 37.42749247408696, lng: -122.17494655887448 }
+  { type: 'Strawberry Tree', lat: 37.42749247408696, lng: -122.17494655887448 },
+  { type: 'Strawberry Tree', lat: 37.42506666875945, lng: -122.16496373727747 },
+  { type: 'Strawberry Tree', lat: 37.424527730088435, lng: -122.17924944420025 },
+  { type: 'Strawberry Tree', lat: 37.42711785007437, lng: -122.1764911288148 },
+  { type: 'Strawberry Tree', lat: 37.427509771758196, lng: -122.1764213913798 },
+  { type: 'Strawberry Tree', lat: 37.427198790590225, lng: -122.1764911288148 },
+  { type: 'Strawberry Tree', lat: 37.43090434953571, lng: -122.17358256439681 },
+  { type: 'Strawberry Tree', lat: 37.43405456621114, lng: -122.17139734704756 },
+  { type: 'Strawberry Tree', lat: 37.4339533600254, lng: -122.17135236352031 },
+  { type: 'Strawberry Tree', lat: 37.433872394585926, lng: -122.17137935413082 },
+  { type: 'Strawberry Tree', lat: 37.43317645444857, lng: -122.17177844496294 },
+  { type: 'Strawberry Tree', lat: 37.43195712469277, lng: -122.16523089998938 },
+  { type: 'Strawberry Tree', lat: 37.43194221555203, lng: -122.16542938345825 },
+
+  { type: "Apricot", lat: 37.42576212882335, lng: -122.18081554110185 },
+  { type: "Apricot", lat: 37.425732840584786, lng: -122.18082425828125 }
 ];
