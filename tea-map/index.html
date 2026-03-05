@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Stanford Tea & Herbs Map</title>
+  <link rel="stylesheet" href="css/tea-style.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+</head>
+<body>
+  <!-- Navigation Bar -->
+  <nav id="navbar">
+    <div class="nav-brand">🍵 Stanford Tea & Herbs Map</div>
+    <div class="nav-links">
+      <a href="#" data-page="map" class="nav-link active">Map</a>
+      <a href="#" data-page="gallery" class="nav-link">Plant Gallery</a>
+      <a href="#" data-page="annuals" class="nav-link">Edible Annuals</a>
+      <a href="#" data-page="faq" class="nav-link">FAQ</a>
+      <a href="#" data-page="about" class="nav-link">About</a>
+      <a href="#" data-page="acknowledgements" class="nav-link">Acknowledgements</a>
+    </div>
+  </nav>
+
+  <!-- MAP PAGE -->
+  <div id="map-page" class="page active">
+    <!-- Season Filter -->
+    <div id="filter-container">
+      <label for="season-filter">Filter by season:</label>
+      <select id="season-filter">
+        <option value="all">All Year</option>
+        <option value="january">January</option>
+        <option value="february">February</option>
+        <option value="march">March</option>
+        <option value="april">April</option>
+        <option value="may">May</option>
+        <option value="june">June</option>
+        <option value="july">July</option>
+        <option value="august">August</option>
+        <option value="september">September</option>
+        <option value="october">October</option>
+        <option value="november">November</option>
+        <option value="december">December</option>
+      </select>
+    </div>
+
+    <div id="map"></div>
+
+    <!-- Sidebar -->
+    <div id="sidebar">
+      <button id="closeSidebar">✕</button>
+      <div id="sidebar-content"></div>
+    </div>
+  </div>
+
+  <!-- PLANT GALLERY PAGE -->
+  <div id="gallery-page" class="page">
+    <div class="page-content">
+      <h1>Tea & Herb Gallery</h1>
+      <p class="subtitle">A complete guide to tea plants and culinary herbs on Stanford's campus</p>
+      
+      <div id="plant-grid">
+        <!-- This will be populated by JavaScript -->
+      </div>
+    </div>
+  </div>
+
+  <!-- EDIBLE ANNUALS PAGE -->
+  <div id="annuals-page" class="page">
+    <div class="page-content">
+      <h1>Edible Annual Plants</h1>
+      <p class="subtitle">Seasonal edible plants that appear around campus</p>
+      
+      <div class="annual-list">
+        <div class="annual-item">
+          <h3>Chickweed (Stellaria media)</h3>
+          <p><strong>Season:</strong> Winter to early spring</p>
+          <p><strong>Where to find:</strong> Lawns, garden beds, disturbed soil</p>
+          <p><strong>Usage:</strong> Fresh in salads, as a cooked green. Mild, slightly sweet flavor.</p>
+        </div>
+
+        <div class="annual-item">
+          <h3>Miner's Lettuce (Claytonia perfoliata)</h3>
+          <p><strong>Season:</strong> Late winter to spring</p>
+          <p><strong>Where to find:</strong> Shady, moist areas</p>
+          <p><strong>Usage:</strong> Excellent salad green. The entire plant is edible with a mild, pleasant taste.</p>
+        </div>
+
+        <div class="annual-item">
+          <h3>Wild Mustard (Brassica spp.)</h3>
+          <p><strong>Season:</strong> Late winter to spring</p>
+          <p><strong>Where to find:</strong> Fields, disturbed areas</p>
+          <p><strong>Usage:</strong> Young leaves for salads or cooking. Seeds can be ground into mustard.</p>
+        </div>
+
+        <!-- Add more annuals as you discover them -->
+      </div>
+    </div>
+  </div>
+
+  <!-- FAQ PAGE -->
+  <div id="faq-page" class="page">
+    <div class="page-content">
+      <h1>Frequently Asked Questions</h1>
+      
+      <div class="faq-item">
+        <h3>Is it safe to harvest these plants?</h3>
+        <p>Yes! However, always make 100% positive identification before consuming any plant. When in doubt, don't eat it. Also be aware that campus landscaping may use pesticides, so wash all foraged items thoroughly.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>How do I make tea from these plants?</h3>
+        <p>Most tea plants can be used fresh or dried. For fresh leaves/flowers, use about 1-2 tablespoons per cup of hot water and steep for 5-10 minutes. Dried material is more concentrated, so use less.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>Can I harvest rosemary and other herbs year-round?</h3>
+        <p>Most perennial herbs like rosemary can be harvested year-round. Just take small amounts from each plant so it can continue growing.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>Why should I forage for these plants?</h3>
+        <p>Foraging is a the best way to eat with a low impact. These plants are not just free and readily available, they're also devoid of packaging or emissions associated with transporting them to a vendor. Not to mention, they're much fresher than anything you could buy!</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>Can I report new tea/herb plants?</h3>
+        <p>Yes! Please contact me at echamb@stanford.edu if you find additional map-worthy plants on campus.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ABOUT PAGE -->
+  <div id="about-page" class="page">
+    <div class="page-content">
+      <h1>About This Project</h1>
+      
+      <p>The Stanford Tea & Herbs Map is a companion to the Stanford Fruit Map, documenting the incredible variety of edible and useful plants growing on campus beyond just fruits.</p>
+
+      <h2>What You'll Find Here</h2>
+      <p>This map includes perennial plants used for tea (like magnolia, osmanthus), culinary herbs (rosemary, pepper), and information about edible annual plants that appear seasonally.</p>
+
+      <h2>About the Creator</h2>
+      <p>My name is Edie, and I'm a Biology undergraduate in the class of '27. After mapping all the fruit trees on campus, I realized there were so many other edible plants worth documenting!</p>
+
+      <h2>How to Use This Map</h2>
+      <p>Click on any plant icon to learn more about it, including when to harvest, how to prepare it, and usage suggestions. Use the seasonal filter to find what's available right now!</p>
+
+      <h2>Contributing</h2>
+      <p>This map is a living document. If you have knowledge to share or find new plants, please reach out to echamb@stanford.edu</p>
+    </div>
+  </div>
+
+  <!-- ACKNOWLEDGEMENTS PAGE -->
+  <div id="acknowledgements-page" class="page">
+    <div class="page-content">
+      <h1>Acknowledgements</h1>
+      
+      <p>This project builds on the Stanford Fruit Map and wouldn't exist without community knowledge and support.</p>
+
+      <h2>Special Thanks To</h2>
+      <ul>
+        <li>Claire Pan, for her extensive knowledge of flowers used to make tea</li>
+        <li>Stanford Grounds & Landscaping for maintaining diverse plant collections</li>
+        <li>The Stanford community for sharing their foraging wisdom</li>
+        <li>Preston Seay, for web development guidance</li>
+        <li>The developers of Leaflet.js for the amazing mapping library</li>
+      </ul>
+
+      <h2>Data Sources</h2>
+      <p>Plant locations were collected through personal observation and community contributions.</p>
+
+      <h2>Technology</h2>
+      <p>This map was built using Leaflet.js, OpenStreetMap, Claude.ai, and lots of curiosity about plants.</p>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script type="module" src="js/teaMain.js"></script>
+</body>
+</html>

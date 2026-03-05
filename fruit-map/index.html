@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Stanford Fruit Map</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+</head>
+<body>
+  <!-- Navigation Bar -->
+  <nav id="navbar">
+    <div class="nav-brand">🍊 Stanford Fruit Map</div>
+    <div class="nav-links">
+      <a href="#" data-page="map" class="nav-link active">Map</a>
+      <a href="#" data-page="gallery" class="nav-link">Fruit Gallery</a>
+      <a href="#" data-page="faq" class="nav-link">FAQ</a>
+      <a href="#" data-page="about" class="nav-link">About</a>
+      <a href="#" data-page="acknowledgements" class="nav-link">Acknowledgements</a>
+    </div>
+    <div class="nav-links">
+  <a href="#" data-page="map" class="nav-link active">Map</a>
+  <!-- rest of links -->
+</div>
+  </nav>
+
+  <!-- MAP PAGE -->
+  <div id="map-page" class="page active">
+    <!-- Season Filter -->
+    <div id="filter-container">
+      <label for="season-filter">Filter by season:</label>
+      <select id="season-filter">
+        <option value="all">All Year</option>
+        <option value="january">January</option>
+        <option value="february">February</option>
+        <option value="march">March</option>
+        <option value="april">April</option>
+        <option value="may">May</option>
+        <option value="june">June</option>
+        <option value="july">July</option>
+        <option value="august">August</option>
+        <option value="september">September</option>
+        <option value="october">October</option>
+        <option value="november">November</option>
+        <option value="december">December</option>
+      </select>
+    </div>
+
+    <div id="map"></div>
+
+    <!-- Sidebar -->
+    <div id="sidebar">
+      <button id="closeSidebar">✕</button>
+      <div id="sidebar-content"></div>
+    </div>
+  </div>
+
+  <!-- FRUIT GALLERY PAGE -->
+  <div id="gallery-page" class="page">
+    <div class="page-content">
+      <h1>Fruit Gallery</h1>
+      <p class="subtitle">A complete guide to all edible fruits on Stanford's campus</p>
+      
+      <div id="fruit-grid">
+        <!-- This will be populated by JavaScript -->
+      </div>
+    </div>
+  </div>
+
+  <!-- FAQ PAGE -->
+  <div id="faq-page" class="page">
+    <div class="page-content">
+      <h1>Frequently Asked Questions</h1>
+      
+      <div class="faq-item">
+        <h3>Is it legal to pick fruit on campus?</h3>
+        <p>Yes! The fruit trees on campus are almost entirely unutilized and planted
+          for decorative purposes, and the fruits would otherwise go to waste. Forage to 
+          your heart's content, but please be respectful and don't damage the trees.</p>
+      </div>
+
+       <div class="faq-item">
+        <h3>How did you find all these fruit trees?</h3>
+        <p>This map is the result of years of wandering around campus, noticing new plants, and
+          simply asking, "Can I eat that?" I'm continuously surprised by finding new edible plants,
+          and it's almost certain that there are still more out there waiting to be discovered!
+        </p>
+      </div>
+
+      <div class="faq-item">
+        <h3>When is the best time to forage?</h3>
+        <p>It depends on the fruit! Use the seasonal filter on the map to find what's 
+          ripe during different months. Because each tree is a unique individual, ripening times 
+          are not universal. For instance, the loquat on Lane B is the earliest ripening loquat I've
+          found, becoming edible as early as the beginning of Spring quarter. The only way to learn
+        of specific ripening times is through observation.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>How do I know if a fruit is ripe?</h3>
+        <p>Check the fruit info pages for specific ripeness indicators. Generally, look 
+          for color changes and slight softness, or give the fruit a taste.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>What should I bring when foraging?</h3>
+        <p>A bag or basket, and potentially a fruit picker for high branches (available at
+           the Law School Library!).</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>Can I report missing or new fruit trees?</h3>
+        <p>Yes! Please contact me at echamb@stanford.edu if you notice trees have been 
+          removed or if you've found new fruit trees on campus.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ABOUT PAGE -->
+  <div id="about-page" class="page">
+    <div class="page-content">
+      <h1>About This Project</h1>
+      
+      <p>The Stanford Fruit Map is a comprehensive guide to edible fruit trees growing on
+         Stanford University's campus. This project aims to connect students, staff, and 
+         visitors with the incredible bounty of fresh, free fruit available throughout the
+          year.</p>
+
+      <h2>About the Creator</h2>
+      <p>My name is Edie, and I'm an Biology undergraduate in the class of '27. I've 
+        always been a huge edible plant nerd, and upon discovering the loquat tree next to Alondra
+      during my freshman year, I was hooked on finding the fruits on campus. This vibe-coded passion
+    project is the culmination of years of exploration and learning about plants from around the
+     world, all brought together to inhabit the gorgeous Stanford campus I feel so lucky to be a part of.</p>
+
+      <h2>How to Use This Map</h2>
+      <p>Click on any fruit icon to learn more about that tree, including when it fruits, how to identify ripeness, and usage suggestions. Use the seasonal filter to find what's available right now!</p>
+
+      <h2>Contributing</h2>
+      <p>This map is a living document. If you notice trees that have been removed, 
+        find new fruit trees, or have additional information to share, please reach out
+      to echamb@stanford.edu</p>
+    </div>
+  </div>
+
+  <!-- ACKNOWLEDGEMENTS PAGE -->
+  <div id="acknowledgements-page" class="page">
+    <div class="page-content">
+      <h1>Acknowledgements</h1>
+      
+      <p>This project would not have been possible without the help and support of many individuals and organizations.</p>
+
+      <h2>Special Thanks To</h2>
+      <ul>
+        <li>Stanford Grounds & Landscaping for maintaining these beautiful fruit trees</li>
+        <li>The Stanford community for their enthusiasm and feedback</li>
+        <li>Preston Seay, for teaching me how to get a website online and use GitHub</li>
+        <li>Claire Pan, for her knowledge of flowers used to make tea</li>
+        <li>The developers of Leaflet.js for the amazing mapping library</li>
+      </ul>
+
+      <h2>Data Sources</h2>
+      <p>Tree locations were collected through personal observation, 
+        community contributions, and verification over multiple seasons.</p>
+
+      <h2>Technology</h2>
+      <p>This map was built using Leaflet.js, OpenStreetMap, Claude.ai, and lots of love for fruit.</p>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,259 @@
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+}
+
+/* Navigation Bar */
+#navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background: #6B4423;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  z-index: 2000;
+}
+
+.nav-brand {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.nav-links {
+  display: flex;
+  gap: 25px;
+}
+
+.nav-link {
+  color: white;
+  text-decoration: none;
+  font-size: 16px;
+  padding: 8px 12px;
+  border-radius: 4px;
+  transition: background 0.3s;
+}
+
+.nav-link:hover {
+  background: rgba(255,255,255,0.1);
+}
+
+.nav-link.active {
+  background: rgba(255,255,255,0.2);
+  font-weight: bold;
+}
+
+/* Page container */
+.page {
+  display: none;
+  padding-top: 60px; /* Account for navbar */
+  height: 100vh;
+  width: 100%;
+}
+
+.page.active {
+  display: block;
+}
+
+/* Map page specific */
+#map-page {
+  padding-top: 0;
+}
+
+#map-page #map {
+  height: 100vh;
+  width: 100%;
+  padding-top: 60px; /* Space for navbar */
+}
+
+/* Filter container - adjust position */
+#filter-container {
+  position: absolute;
+  top: 70px;  /* Below navbar */
+  left: 10px;
+  background: white;
+  padding: 10px 15px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+#filter-container label {
+  font-weight: bold;
+  font-size: 14px;
+}
+
+#season-filter {
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+/* Content pages */
+.page-content {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  overflow-y: auto;
+  height: calc(100vh - 60px);
+}
+
+.page-content h1 {
+  color: #6B4423;
+  margin-bottom: 10px;
+}
+
+.page-content h2 {
+  color: #6B4423;
+  margin-top: 30px;
+  margin-bottom: 15px;
+}
+
+.page-content h3 {
+  color: #6B4423;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+.subtitle {
+  color: #666;
+  font-size: 18px;
+  margin-bottom: 30px;
+}
+
+/* FAQ items */
+.faq-item {
+  margin-bottom: 25px;
+  padding: 20px;
+  background: #f9f9f9;
+  border-radius: 8px;
+  border-left: 4px solid #2c5f2d;
+}
+
+.faq-item h3 {
+  margin-top: 0;
+}
+
+/* Fruit Gallery Grid */
+#fruit-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+  margin-top: 30px;
+}
+
+.fruit-card {
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
+  cursor: pointer;
+}
+
+.fruit-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.fruit-card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.fruit-card-content {
+  padding: 15px;
+}
+
+.fruit-card h3 {
+  margin: 0 0 10px 0;
+  color: #2c5f2d;
+}
+
+.fruit-card p {
+  margin: 5px 0;
+  font-size: 14px;
+  color: #666;
+}
+
+/* Sidebar styling */
+#sidebar {
+  position: fixed;
+  top: 0;
+  right: -350px;
+  width: 350px;
+  height: 100vh;
+  background: white;
+  box-shadow: -4px 0 10px rgba(0,0,0,0.2);
+  overflow-y: auto;
+  transition: right 0.3s ease;
+  padding: 16px;
+  padding-top: 70px; /* Account for navbar */
+  z-index: 1500;
+  box-sizing: border-box;
+}
+
+#sidebar.open {
+  right: 0;
+}
+
+#closeSidebar {
+  position: absolute;
+  top: 70px;
+  right: 10px;
+  border: none;
+  background: none;
+  font-size: 1.5em;
+  cursor: pointer;
+  color: #333;
+  padding: 5px;
+}
+
+#closeSidebar:hover {
+  color: #000;
+}
+
+.info-button {
+  background: #4CAF50;
+  color: white;
+  border: none;
+  padding: 5px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+.info-button:hover {
+  background: #45a049;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .nav-links {
+    gap: 10px;
+    font-size: 14px;
+  }
+  
+  .nav-brand {
+    font-size: 16px;
+  }
+  
+  #fruit-grid {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  }
+}

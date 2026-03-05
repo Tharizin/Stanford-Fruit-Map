@@ -1,7 +1,7 @@
 
 export const fruitInfo = {
   Orange: {
-    image: 'images/orange_tree.jpg',
+    image: 'fruit-map/images/orange_tree.jpg',
     ripening: 'Winter–early spring',
     months: ['january', 'february', 'march', 'april'],
     description: `
@@ -17,9 +17,9 @@ export const fruitInfo = {
     `
   },
   Loquat: {
-    image: 'images/loquat_tree.png',
+    image: 'fruit-map/images/loquat_tree.png',
     ripening: 'Late spring–early summer',
-    months: ['may', 'june'],
+    months: ['may', 'june',],
     description: `
       Hailing from cool regions in China and Japan, this gorgeous tree
       is certainly one of the best fruits on campus. Your patience for waiting
@@ -38,7 +38,7 @@ export const fruitInfo = {
     `
   },
   Fig: {
-    image: 'images/fig_tree.jpeg',
+    image: 'fruit-map/images/fig_tree.jpeg',
     ripening: 'Late summer through fall',
     months: ['august', 'september', 'october', 'november'],
     description: `
@@ -59,9 +59,9 @@ export const fruitInfo = {
     `
   },
   "Brush Cherry": {
-    image: 'images/brush_cherry.jpg',
-    ripening: 'Fall through winter',
-    months: ['october', 'november', 'december', 'january'],
+    image: 'fruit-map/images/brush_cherry.jpg',
+    ripening: 'Year round',
+    months: ['january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december'],
     description: `
       This tree (and sometimes hedge) is native to eastern Australia and is
       in the myrtle family. Fruit fans familiar with wax apples will notice 
@@ -79,7 +79,7 @@ export const fruitInfo = {
     `
     },
     "Avocado": {
-    image: 'images/avocado_tree.jpg',
+    image: 'fruit-map/images/avocado_tree.jpg',
     ripening: 'Does not ripen on tree; typically harvested in late fall to winter',
     months: ['november', 'december'],
     description: `
@@ -99,7 +99,7 @@ export const fruitInfo = {
   `
     },
     "Hachiya Persimmon": {
-    image: 'images/hachiya_tree.jpg',
+    image: 'fruit-map/images/hachiya_tree.jpg',
     ripening: 'Fall quarter',
     months: ['october', 'november'],
     description: `
@@ -123,7 +123,7 @@ export const fruitInfo = {
   `
   },
   "Fuyu Persimmon": {
-    image: 'images/fuyu_tree.webp',
+    image: 'fruit-map/images/fuyu_tree.webp',
     ripening: 'Late fall–early winter',
     months: ['november'],
     description: `
@@ -140,7 +140,7 @@ export const fruitInfo = {
     `
   },
   Pomegranate: {
-    image: 'images/pomegranate_tree.webp',
+    image: 'fruit-map/images/pomegranate_tree.webp',
     ripening: 'Late summer–early fall',
     months: ['september', 'october', 'november'],
     description: `
@@ -159,9 +159,9 @@ export const fruitInfo = {
 `
 },
 Apple: {
-    image: 'images/apple_tree.webp',
+    image: 'fruit-map/images/apple_tree.webp',
     ripening: 'Late summer–fall',
-    months: ['september', 'october'],
+    months: ['august', 'september', 'october'],
     description: `A crowd favorite, no fruit list would be complete without the humble
     apple. There are a few types that can be found on campus, including a tasty yellow
     variety in front of Florence Moore Hall, “donut” apples behind Loro (West Florence
@@ -177,7 +177,7 @@ Apple: {
   `
  },
  Feijoa: {
-    image: 'images/feijoa_bush.jpg',
+    image: 'fruit-map/images/feijoa_bush.jpg',
     ripening: 'Fall quarter',
     months: ['october', 'november'],
     description: `
@@ -195,7 +195,7 @@ Apple: {
  },
 
  "Natal Plum": {
-    image: 'images/natal_plum.jpg',
+    image: 'fruit-map/images/natal_plum.jpg',
     ripening: 'Somewhat year round',
     months: ['july', 'august', 'september', 'october', 'november', 'december'],
     description: `
@@ -213,9 +213,9 @@ Apple: {
 },
 
 Passionfruit: {
-    image: 'images/passionfruit_vine.jpg',
-    ripening: 'Late fall? Winter?',
-    months: ['november', 'december', 'january'],
+    image: 'fruit-map/images/passionfruit_vine.jpg',
+    ripening: 'Probably summer',
+    months: ['june', 'july', 'august'],
     description: `
       While ornamental varieties are common across campus, this vine is the only fruiting 
       passionfruit that I have discovered. As of fall 2025, I have no idea when these
@@ -234,9 +234,9 @@ Passionfruit: {
     `,
 },
 "Lemon": {
-    image: 'images/lemon_tree.jpg',
+    image: 'fruit-map/images/lemon_tree.jpg',
     ripening: 'Winter',
-    months: ['december', 'january', 'february'],
+    months: ['december', 'january', 'february', 'march'],
     description: `
       The bright yellow lemon is a staple of Bay Area front yards, and the many trees on 
       campus are certainly just as underutilized. Botanically a berry, lemons are native 
@@ -254,7 +254,7 @@ Passionfruit: {
     `,
   },
   "Lime": {
-    image: 'images/lime_tree.webp',
+    image: 'fruit-map/images/lime_tree.webp',
     ripening: 'Winter',
     months: ['december', 'january', 'february'],
     description: `
@@ -271,9 +271,9 @@ Passionfruit: {
 },
 
 Pomelo: {
-    image: 'images/pomelo_lemon.jpg',
+    image: 'fruit-map/images/pomelo_lemon.jpg',
     ripening: 'Winter',
-    months: ['december', 'january', 'february'],
+    months: ['december', 'january', 'february', 'march'],
     description: `
       Stanford’s pomelo trees would be more accurately referred to as “giant lemons.” 
       These colossal citrus fruits are not the magnificent sweet pink beauties I purchase
@@ -291,7 +291,7 @@ Pomelo: {
 `
 },
 "Fall Loquat": {
-    image: 'images/fall_loquat.jpg',
+    image: 'fruit-map/images/fall_loquat.jpg',
     ripening: 'Fall',
     months: ['october', 'november'],
     description: `
@@ -312,9 +312,9 @@ Pomelo: {
     `,
 },
 "Strawberry Tree": {
-    image: 'images/strawberry_tree.webp',
-    ripening: 'Fall, early winter',
-    months: ['october', 'november', 'december'],
+    image: 'fruit-map/images/strawberry_tree.webp',
+    ripening: 'Year-round',
+    months: ['january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december'],
     description: `
       To be perfectly honest, I created this map with the full intention of omitting
       this fruit. For some reason I find it immensely unpalatable (but it’s not all
@@ -325,7 +325,9 @@ Pomelo: {
       that is obvious when observing its showers of bell-shaped blooms, and is 
       native to the Mediterranean Basin. Its flesh is soft and custardy, with a delicate
       floral taste reminiscent of guava and apricot. They are very soft and easily 
-      bruised, so take care when transporting them.
+      bruised, so take care when transporting them. While I have recorded this fruit as
+      being ripe year-round, not every tree/bush will produce fruit at all times, so it’s 
+      worth checking back on them throughout the year to see if they’re ready to eat.
     `,
     usage: `
       While not the most exciting fruit, the berries can be used in jams, jellies,
@@ -334,7 +336,7 @@ Pomelo: {
     `,
 },
 "Kousa Dogwood": {
-    image: 'images/kousa_dogwood.jpg',
+    image: 'fruit-map/images/kousa_dogwood.jpg',
     ripening: 'Late summer–fall',
     months: ['september', 'october'],
     description: `
@@ -351,9 +353,9 @@ Pomelo: {
     `,
 },
 "Plum": {
-    image: 'images/plum_tree.jpg',
+    image: 'fruit-map/images/plum_tree.jpg',
     ripening: 'Summer–early fall',
-    months: ['august', 'september'],
+    months: ['june', 'july', 'august', 'september'],
     description: `The variety of plums to be had around campus is truly wonderful. 
     One of the most common varieties are the deep red-purple ornamentals that can 
     be found throughout campus. Their rosy fruits are roughly ping-pong ball sized
@@ -371,7 +373,7 @@ Pomelo: {
   `
  },
  "Prickly Pear": {
-    image: 'images/prickly_pear.webp',
+    image: 'fruit-map/images/prickly_pear.webp',
     ripening: 'Summer',
     months: ['july', 'august'],
     description: `
@@ -397,9 +399,9 @@ Pomelo: {
   `
  },
  "Kumquat": {
-    image: 'images/kumquat_tree.jpg',
+    image: 'fruit-map/images/kumquat_tree.jpg',
     ripening: 'Winter',
-    months: ['december', 'january', 'february'],
+    months: ['december', 'january', 'february', 'march'],
     description: `
     Most people I meet seem to love the humble kumquat, but try as I might, I’ve never 
     found them palatable. However, to the many kumquat enjoyers, these fruits are bright
@@ -413,7 +415,7 @@ Pomelo: {
  },
 
 "Quince": {
-    image: 'images/quince_tree.jpg',
+    image: 'fruit-map/images/quince_tree.jpg',
     ripening: 'Late fall',
     months: ['october', 'november', 'december'],
     description: `
@@ -435,7 +437,7 @@ Pomelo: {
 `
 },
 "Asian Pear": {
-    image: 'images/asian_pear.jpg',
+    image: 'fruit-map/images/asian_pear.jpg',
     ripening: 'Late summer, very early fall',
     months: ['august', 'september'],
     description: `
@@ -453,7 +455,7 @@ These pears are best directly from the tree (if you haven’t been beaten to the
 },
 
 "Trifoliate Orange": {
-    image: 'images/trifoliate_orange.jpg',
+    image: 'fruit-map/images/trifoliate_orange.jpg',
     ripening: 'Fall, winter',
     months: ['november', 'december', 'january'],
     description: `
@@ -465,7 +467,7 @@ The “oranges” are somewhat bitter and quite sour, and the high concentration
 },
  
 "Grape": {
-    image: 'images/grape_vine.jpg',
+    image: 'fruit-map/images/grape_vine.jpg',
     ripening: 'Late summer–early fall',
     months: ['september', 'october'],
     description: `
@@ -474,5 +476,17 @@ The “oranges” are somewhat bitter and quite sour, and the high concentration
     usage: `
  Eat fresh out of hand (the seeds are perfectly edible and add a nice crunch), ferment into wine (obviously), concoct jams and jellies, dry to make raisins, or add to both sweet and savory dishes. The leaves are also edible and a staple of Mediterranean and Middle Eastern cuisine. I’m particularly fond of dolma, or stuffed grape leaves.
   `
-}
-};
+},
+
+"Dragonfruit": {
+    image: 'fruit-map/images/dragonfruit.jpeg',
+    ripening: 'Spring? Summer? I have no idea',
+    months: ['march', 'april', 'may'],
+    description: `
+    During a fruit walk in March 2026, I stumbled across this spectacular specimen that to my knowledge is the only dragonfruit cactus on campus. This gorgeous, alien-looking fruit is one I’ve only ever tried from the grocery store, but the lackluster flavor held within a Safeway dragonfruit is said to be nothing compared to the taste of a fresh one, picked when truly ripe. Unfortunately, this cactus appears to be well-maintained (someone put a protective bag around the fruit I found and neatly trained the stems to a fence), which indicates that this isn’t one you can freely pick. Maybe if you email the District Work Center people who likely care for the plant, they’ll let you try a sample.
+    `,
+    usage: `
+    The flesh of the dragonfruit is mildly sweet and refreshing, with a texture similar to kiwi due to the presence of small black seeds. It can be eaten fresh, added to smoothies, used in desserts, or even added to a tropical salsa. The vibrant pink skin is not edible, but it makes for a stunning presentation when sliced open.
+  `
+    },
+  }
