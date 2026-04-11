@@ -1,7 +1,7 @@
 
 export const fruitInfo = {
   Orange: {
-    image: 'fruit-map/images/orange_tree.jpg',
+    image: 'images/orange_tree.jpg',
     ripening: 'Winter–early spring',
     months: ['january', 'february', 'march', 'april'],
     description: `
@@ -17,7 +17,7 @@ export const fruitInfo = {
     `
   },
   Loquat: {
-    image: 'fruit-map/images/loquat_tree.png',
+    image: 'images/loquat_tree.png',
     ripening: 'Late spring–early summer',
     months: ['may', 'june',],
     description: `
@@ -38,7 +38,7 @@ export const fruitInfo = {
     `
   },
   Fig: {
-    image: 'fruit-map/images/fig_tree.jpeg',
+    image: 'images/fig_tree.jpeg',
     ripening: 'Late summer through fall',
     months: ['august', 'september', 'october', 'november'],
     description: `
@@ -59,7 +59,7 @@ export const fruitInfo = {
     `
   },
   "Brush Cherry": {
-    image: 'fruit-map/images/brush_cherry.jpg',
+    image: 'images/brush_cherry.jpg',
     ripening: 'Year round',
     months: ['january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december'],
     description: `
@@ -79,7 +79,7 @@ export const fruitInfo = {
     `
     },
     "Avocado": {
-    image: 'fruit-map/images/avocado_tree.jpg',
+    image: 'images/avocado_tree.jpg',
     ripening: 'Does not ripen on tree; typically harvested in late fall to winter',
     months: ['november', 'december'],
     description: `
@@ -99,7 +99,7 @@ export const fruitInfo = {
   `
     },
     "Hachiya Persimmon": {
-    image: 'fruit-map/images/hachiya_tree.jpg',
+    image: 'images/hachiya_tree.jpg',
     ripening: 'Fall quarter',
     months: ['october', 'november'],
     description: `
@@ -123,7 +123,7 @@ export const fruitInfo = {
   `
   },
   "Fuyu Persimmon": {
-    image: 'fruit-map/images/fuyu_tree.webp',
+    image: 'images/fuyu_tree.webp',
     ripening: 'Late fall–early winter',
     months: ['november'],
     description: `
@@ -140,7 +140,7 @@ export const fruitInfo = {
     `
   },
   Pomegranate: {
-    image: 'fruit-map/images/pomegranate_tree.webp',
+    image: 'images/pomegranate_tree.webp',
     ripening: 'Late summer–early fall',
     months: ['september', 'october', 'november'],
     description: `
@@ -159,7 +159,7 @@ export const fruitInfo = {
 `
 },
 Apple: {
-    image: 'fruit-map/images/apple_tree.webp',
+    image: 'images/apple_tree.webp',
     ripening: 'Late summer–fall',
     months: ['august', 'september', 'october'],
     description: `A crowd favorite, no fruit list would be complete without the humble
@@ -177,7 +177,7 @@ Apple: {
   `
  },
  Feijoa: {
-    image: 'fruit-map/images/feijoa_bush.jpg',
+    image: 'images/feijoa_bush.jpg',
     ripening: 'Fall quarter',
     months: ['october', 'november'],
     description: `
@@ -195,7 +195,7 @@ Apple: {
  },
 
  "Natal Plum": {
-    image: 'fruit-map/images/natal_plum.jpg',
+    image: 'images/natal_plum.jpg',
     ripening: 'Somewhat year round',
     months: ['july', 'august', 'september', 'october', 'november', 'december'],
     description: `
@@ -213,7 +213,7 @@ Apple: {
 },
 
 Passionfruit: {
-    image: 'fruit-map/images/passionfruit_vine.jpg',
+    image: 'images/passionfruit_vine.jpg',
     ripening: 'Probably summer',
     months: ['june', 'july', 'august'],
     description: `
@@ -234,7 +234,7 @@ Passionfruit: {
     `,
 },
 "Lemon": {
-    image: 'fruit-map/images/lemon_tree.jpg',
+    image: 'images/lemon_tree.jpg',
     ripening: 'Winter',
     months: ['december', 'january', 'february', 'march'],
     description: `
@@ -254,7 +254,7 @@ Passionfruit: {
     `,
   },
   "Lime": {
-    image: 'fruit-map/images/lime_tree.webp',
+    image: 'images/lime_tree.webp',
     ripening: 'Winter',
     months: ['december', 'january', 'february'],
     description: `
@@ -271,7 +271,7 @@ Passionfruit: {
 },
 
 Pomelo: {
-    image: 'fruit-map/images/pomelo_lemon.jpg',
+    image: 'images/pomelo_lemon.jpg',
     ripening: 'Winter',
     months: ['december', 'january', 'february', 'march'],
     description: `
@@ -291,7 +291,7 @@ Pomelo: {
 `
 },
 "Fall Loquat": {
-    image: 'fruit-map/images/fall_loquat.jpg',
+    image: 'images/fall_loquat.jpg',
     ripening: 'Fall',
     months: ['october', 'november'],
     description: `
@@ -312,7 +312,7 @@ Pomelo: {
     `,
 },
 "Strawberry Tree": {
-    image: 'fruit-map/images/strawberry_tree.webp',
+    image: 'images/strawberry_tree.webp',
     ripening: 'Year-round',
     months: ['january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december'],
     description: `
@@ -336,7 +336,7 @@ Pomelo: {
     `,
 },
 "Kousa Dogwood": {
-    image: 'fruit-map/images/kousa_dogwood.jpg',
+    image: 'images/kousa_dogwood.jpg',
     ripening: 'Late summer–fall',
     months: ['september', 'october'],
     description: `
@@ -353,7 +353,7 @@ Pomelo: {
     `,
 },
 "Plum": {
-    image: 'fruit-map/images/plum_tree.jpg',
+    image: 'images/plum_tree.jpg',
     ripening: 'Summer–early fall',
     months: ['june', 'july', 'august', 'september'],
     description: `The variety of plums to be had around campus is truly wonderful. 
@@ -373,7 +373,7 @@ Pomelo: {
   `
  },
  "Prickly Pear": {
-    image: 'fruit-map/images/prickly_pear.webp',
+    image: 'images/prickly_pear.webp',
     ripening: 'Summer',
     months: ['july', 'august'],
     description: `
@@ -399,7 +399,7 @@ Pomelo: {
   `
  },
  "Kumquat": {
-    image: 'fruit-map/images/kumquat_tree.jpg',
+    image: 'images/kumquat_tree.jpg',
     ripening: 'Winter',
     months: ['december', 'january', 'february', 'march'],
     description: `
@@ -415,7 +415,7 @@ Pomelo: {
  },
 
 "Quince": {
-    image: 'fruit-map/images/quince_tree.jpg',
+    image: 'images/quince_tree.jpg',
     ripening: 'Late fall',
     months: ['october', 'november', 'december'],
     description: `
@@ -437,7 +437,7 @@ Pomelo: {
 `
 },
 "Asian Pear": {
-    image: 'fruit-map/images/asian_pear.jpg',
+    image: 'images/asian_pear.jpg',
     ripening: 'Late summer, very early fall',
     months: ['august', 'september'],
     description: `
@@ -455,7 +455,7 @@ These pears are best directly from the tree (if you haven’t been beaten to the
 },
 
 "Trifoliate Orange": {
-    image: 'fruit-map/images/trifoliate_orange.jpg',
+    image: 'images/trifoliate_orange.jpg',
     ripening: 'Fall, winter',
     months: ['november', 'december', 'january'],
     description: `
@@ -467,7 +467,7 @@ The “oranges” are somewhat bitter and quite sour, and the high concentration
 },
  
 "Grape": {
-    image: 'fruit-map/images/grape_vine.jpg',
+    image: 'images/grape_vine.jpg',
     ripening: 'Late summer–early fall',
     months: ['september', 'october'],
     description: `
@@ -479,7 +479,7 @@ The “oranges” are somewhat bitter and quite sour, and the high concentration
 },
 
 "Dragonfruit": {
-    image: 'fruit-map/images/dragonfruit.jpeg',
+    image: 'images/dragonfruit.jpeg',
     ripening: 'Spring? Summer? I have no idea',
     months: ['march', 'april', 'may'],
     description: `
@@ -489,4 +489,16 @@ The “oranges” are somewhat bitter and quite sour, and the high concentration
     The flesh of the dragonfruit is mildly sweet and refreshing, with a texture similar to kiwi due to the presence of small black seeds. It can be eaten fresh, added to smoothies, used in desserts, or even added to a tropical salsa. The vibrant pink skin is not edible, but it makes for a stunning presentation when sliced open.
   `
     },
-  }
+
+    "Nectarine": {
+    image: 'images/nectarine.webp',
+    ripening: 'Summer',
+    months: ['july', 'august'],
+    description: `
+    These juicy stone fruits are actually a genetic variant of the beloved peach, likely domesticated in China. Indeed, the trees of peaches and nectarines are virtually indistinguishable, and I was only able to identify the Loro courtyard grove by the developing fruits. It’s quite interesting to me that these trees produce fruit in the mild Mediterranean climate of Stanford, as most nectarines require a colder winter season in which they lay dormant, resting before they can once again become laden with fruit.
+    `,
+      usage: `
+      In late summer, you can pick the nectarines fresh from the tree and eat out of hand, enjoying a flavor and juiciness that is impossible to get from the grocery store. They also make a lovely jam and can be used in desserts, served with ricotta or ice cream, or as a complement to a savory meat dish.
+    `
+    }
+  };

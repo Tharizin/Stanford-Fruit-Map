@@ -3,6 +3,9 @@ export const teaPlants = [
   // Add your coordinates here
   // Example format:
   { type: 'Rosemary', lat: 37.427947968534205, lng: -122.16905814532062 },
+  { type: 'Rosemary', lat: 37.42643973902112, lng: -122.17109989645674 },
+  { type: 'Rosemary', lat: 37.43090359367368, lng: -122.17173075470988 },
+  { type: 'Rosemary', lat: 37.43059336780702, lng: -122.17183515063074 },
 
   { type: 'Magnolia', lat: 37.43014249908146, lng: -122.17400349931562 },
   { type: 'Magnolia', lat: 37.43049970943102, lng: -122.17187056182699 },

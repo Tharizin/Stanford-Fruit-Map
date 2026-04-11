@@ -27,6 +27,7 @@ export const fruits = [
   { type: 'Orange', lat: 37.42903503027111, lng: -122.16539262686578 },
   { type: 'Orange', lat: 37.429296066553974, lng: -122.1651070780544 },
   { type: 'Orange', lat: 37.42930618501543, lng: -122.16511089451272 },
+  { type: 'Orange', lat: 37.42423744179543, lng: -122.17497310651585 },
 
   { type: 'Lemon', lat: 37.42294344817035, lng: -122.16883372556157 },
   { type: 'Lemon', lat: 37.427650817567596, lng: -122.16891192117446 },
@@ -52,6 +53,8 @@ export const fruits = [
   { type: 'Lemon', lat: 37.42246331251022, lng: -122.16586364462295 },
   { type: 'Lemon', lat: 37.42939080290062, lng: -122.17761365964732 },
   { type: 'Lemon', lat: 37.42644948918549, lng: -122.16220433415576 },
+  { type: 'Lemon', lat: 37.42438850207932, lng: -122.17488858214027 },
+  { type: 'Lemon', lat: 37.42432051551962, lng: -122.1749328733826 },
 
   { type: 'Lime', lat: 37.42506849021938, lng: -122.16153208224652 },
 
@@ -68,6 +71,7 @@ export const fruits = [
 
   { type: 'Grapefruit', lat: 37.42409484898927, lng: -122.17395413719682 },
   { type: 'Grapefruit', lat: 37.422442011035734, lng: -122.16592801763612},
+  { type: 'Grapefruit', lat: 37.41902945585726, lng: -122.16587292334273 },
 
   // Pits
   { type: 'Loquat', lat: 37.422276960086414, lng: -122.17240128411594 },
@@ -86,6 +90,7 @@ export const fruits = [
   { type: 'Loquat', lat: 37.43728772296064, lng: -122.16874421165411 },
   { type: 'Loquat', lat: 37.42319122878133, lng: -122.15571778640499 },
   { type: 'Loquat', lat: 37.42314727337836, lng: -122.15558495190416 },
+  { type: 'Loquat', lat: 37.422327855528856, lng: -122.15586458223828 },
 
   { type: 'Fall Loquat', lat: 37.42655209428253, lng: -122.17062602227958 },
   { type: 'Fall Loquat', lat: 37.42653505403401, lng: -122.17054488546201 },
@@ -121,6 +126,9 @@ export const fruits = [
 
   { type: 'Avocado', lat: 37.42794373280669, lng: -122.16931552147051 },
   { type: 'Avocado', lat: 37.428034789877145, lng: -122.16949925278392 },
+
+  {type: 'Nectarine', lat: 37.42236011237303, lng: -122.17250573303961},
+  {type: 'Nectarine', lat: 37.42223816118159, lng: -122.17236022320775},
 
   // Miscellaneous
   { type: 'Passionfruit', lat: 37.423929450527915, lng: -122.1685974411421 },
@@ -225,6 +233,7 @@ export const fruits = [
   { type: 'Strawberry Tree', lat: 37.43080827254038, lng: -122.17120380248761 },
   { type: 'Strawberry Tree', lat: 37.43042652480167, lng: -122.17111294111915 },
   { type: 'Strawberry Tree', lat: 37.43027157291849, lng: -122.17117865523677 },
+  { type: 'Strawberry Tree', lat: 37.423561950580215, lng: -122.15578480002941 },
 
   { type: "Apricot", lat: 37.42576212882335, lng: -122.18081554110185 },
   { type: "Apricot", lat: 37.425732840584786, lng: -122.18082425828125 },

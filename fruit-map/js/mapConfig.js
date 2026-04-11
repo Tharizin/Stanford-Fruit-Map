@@ -26,7 +26,8 @@ export const icons = {
   "Asian": L.icon({ iconUrl: 'icons/asian.png', iconSize: [60,60], iconAnchor: [30,30], popupAnchor: [0,-25] }),
   "Cherry": L.icon({ iconUrl: 'icons/cherry.png', iconSize: [60,60], iconAnchor: [30,30], popupAnchor: [0,-25] }),
   "Trifoliate": L.icon({ iconUrl: 'icons/trifoliate.png', iconSize: [60,60], iconAnchor: [30,30], popupAnchor: [0,-25] }),
-  "Dragonfruit": L.icon({ iconUrl: 'icons/dragonfruit.png', iconSize: [60,60], iconAnchor: [30,30], popupAnchor: [0,-25] })
+  "Dragonfruit": L.icon({ iconUrl: 'icons/dragonfruit.png', iconSize: [60,60], iconAnchor: [30,30], popupAnchor: [0,-25] }),
+  "Nectarine": L.icon({ iconUrl: 'icons/nectarine.png', iconSize: [60,60], iconAnchor: [30,30], popupAnchor: [0,-25] })
 };
 
 // Alias Map
