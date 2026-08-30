@@ -1,0 +1,51 @@
+/* Stanford Fruit Map — design tokens.
+   "Modern Earthy" / Organic Minimalism: Warm Bone background, Olive Drab
+   and Burnt Sienna as the two working colors, a high-contrast serif for
+   headlines paired with a wide-tracked sans for nav/body copy.
+   Shared by style.css and admin.css via @import, so both the public
+   site and the admin dashboard stay visually consistent. Light theme only
+   by design — there is no dark-mode variant. */
+
+:root {
+  /* Surfaces & text */
+  --color-bg: #f5f5f0;
+  --color-surface: #fffdf9;
+  --color-surface-raised: #ffffff;
+  --color-border: #e2ddd0;
+  --color-text: #2b2a24;
+  --color-text-muted: #6f6b5c;
+
+  /* Brand */
+  --color-primary: #556b2f;
+  --color-primary-hover: #445626;
+  --color-primary-tint: #e7ebdc;
+  --color-primary-contrast: #ffffff;
+
+  --color-accent: #e97451;
+  --color-accent-hover: #d1613f;
+  --color-accent-contrast: #ffffff;
+
+  --color-danger: #b3462c;
+  --color-danger-hover: #973a24;
+  --color-success: #556b2f;
+
+  /* Overlays */
+  --overlay-scrim: rgba(43, 42, 36, 0.5);
+
+  /* Elevation — soft, olive-tinted rather than neutral gray/black, for an
+     organic rather than corporate feel. */
+  --shadow-sm: 0 1px 2px rgba(43, 42, 36, 0.06);
+  --shadow-md: 0 6px 20px rgba(50, 58, 40, 0.10);
+  --shadow-lg: 0 16px 40px rgba(50, 58, 40, 0.18);
+
+  /* Shape & layout */
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --nav-height: 64px;
+
+  /* Type */
+  --font-heading: 'Cormorant Garamond', Georgia, serif;
+  --font-body: 'Public Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --tracking-wide: 0.06em;
+}

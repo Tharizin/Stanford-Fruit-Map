@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fruit Map Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/admin.css" />
+</head>
+<body>
+  <nav id="navbar">
+    <a href="index.html" class="nav-brand" style="text-decoration: none; color: inherit;">Stanford Fruit Map — Admin</a>
+  </nav>
+
+  <div class="admin-content">
+
+    <!-- LOGIN -->
+    <section id="loginSection" class="login-screen">
+      <div class="admin-card login-card">
+        <h1>Admin Login</h1>
+        <form id="loginForm">
+          <input type="password" id="loginPassword" placeholder="Password" required autocomplete="current-password" />
+          <button type="submit">Log In</button>
+        </form>
+        <p id="loginStatus"></p>
+        <button id="wrongUserLogoutBtn" style="display:none;">Log out</button>
+        <p class="login-return-link"><a href="../index.html">Not an admin? Return to the homepage here</a></p>
+      </div>
+    </section>
+
+    <!-- ADMIN DASHBOARD -->
+    <section id="dashboard" style="display:none;">
+      <div class="admin-header">
+        <span id="loggedInAs"></span>
+        <button id="logoutBtn">Log out</button>
+      </div>
+
+      <div class="admin-grid">
+      <section class="admin-card">
+        <h2>Photo Submissions</h2>
+        <div id="photoSubmissionsList"></div>
+        <p id="photoSubmissionsStatus"></p>
+      </section>
+
+      <section class="admin-card">
+        <h2>Pending Sightings</h2>
+        <div id="pendingList"></div>
+      </section>
+
+      <section class="admin-card">
+        <h2>Species Info</h2>
+        <label for="speciesSelect">Edit species:</label>
+        <select id="speciesSelect"></select>
+
+        <form id="speciesForm">
+          <label for="speciesIconKey">Icon key (matches an icons/*.png filename, leave blank for default pin)</label>
+          <input type="text" id="speciesIconKey" placeholder="e.g. Apple" />
+
+          <label for="speciesScientificName">Scientific name</label>
+          <input type="text" id="speciesScientificName" placeholder="e.g. Malus domestica" />
+
+          <label for="speciesImage">Cover image path</label>
+          <input type="text" id="speciesImage" placeholder="fruit-images/example.jpg" />
+
+          <label for="speciesRipening">Ripening window</label>
+          <input type="text" id="speciesRipening" placeholder="e.g. Late summer–fall" />
+
+          <label>Months in season</label>
+          <div id="monthsCheckboxes" class="months-grid"></div>
+
+          <label for="speciesDescription">Description</label>
+          <textarea id="speciesDescription"></textarea>
+
+          <label for="speciesUsage">Usage</label>
+          <textarea id="speciesUsage"></textarea>
+
+          <button type="submit">Save Species Info</button>
+        </form>
+        <p id="speciesStatus"></p>
+
+        <label>Extra Photos</label>
+        <div id="speciesPhotos" class="photo-grid"></div>
+        <label for="speciesPhotoUpload">Add photos</label>
+        <input type="file" id="speciesPhotoUpload" accept="image/*" multiple />
+      </section>
+
+      <section class="admin-card">
+        <h2>Edible Plants (Not on Map)</h2>
+        <label for="ediblePlantSelect">Edit entry:</label>
+        <select id="ediblePlantSelect"></select>
+
+        <form id="ediblePlantForm">
+          <label for="ediblePlantCommonName">Common name</label>
+          <input type="text" id="ediblePlantCommonName" placeholder="e.g. Rosemary" required />
+
+          <label for="ediblePlantScientificName">Scientific name</label>
+          <input type="text" id="ediblePlantScientificName" placeholder="e.g. Salvia rosmarinus" />
+
+          <label for="ediblePlantLocationNotes">Where it's found</label>
+          <textarea id="ediblePlantLocationNotes"></textarea>
+
+          <label for="ediblePlantUsage">What you can do with it</label>
+          <textarea id="ediblePlantUsage"></textarea>
+
+          <button type="submit">Save Entry</button>
+        </form>
+        <p id="ediblePlantStatus"></p>
+
+        <label>Photos</label>
+        <div id="ediblePlantPhotos" class="photo-grid"></div>
+        <label for="ediblePlantPhotoUpload">Add photos</label>
+        <input type="file" id="ediblePlantPhotoUpload" accept="image/*" multiple />
+      </section>
+      </div>
+
+      <section class="admin-card">
+        <h2>Manage Admins</h2>
+        <div id="adminsList"></div>
+
+        <form id="addAdminForm">
+          <label for="newAdminEmail">Add admin by email</label>
+          <input type="email" id="newAdminEmail" placeholder="newadmin@stanford.edu" required />
+          <button type="submit">Add Admin</button>
+        </form>
+        <p id="adminsStatus"></p>
+      </section>
+    </section>
+
+  </div>
+
+  <script type="module" src="js/admin.js"></script>
+</body>
+</html>

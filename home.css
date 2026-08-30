@@ -1,0 +1,327 @@
+@import "fruit-map/css/theme.css";
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
+}
+
+/* Permanent, discreet scrollbar flush against the edge of the screen. */
+html {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(85, 107, 47, 0.35) transparent;
+}
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(85, 107, 47, 0.35);
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(85, 107, 47, 0.55);
+}
+
+a {
+  color: inherit;
+}
+
+/* ─── Hero: your designed baseline image, used as-is ──────────
+   The photo + "stanford"/"fruit"/"map" typography are all baked into
+   site-images/hero-baseline.png (desktop) / mobile_hero.png (<=768px),
+   applied as a CSS background-image so each device only ever downloads
+   its own crop, never both. Only the nav links and the CTA button are
+   real elements, positioned by percentage over the image so they stay
+   put as it scales with the viewport. */
+.hero-image-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background-image: url('site-images/hero-baseline.png');
+  background-size: cover;
+  background-position: center;
+}
+
+/* Sits over the dark side of the photo, top-left — subtle on purpose,
+   this is a utility link for the site owner, not a visitor-facing CTA. */
+.hero-admin-link {
+  position: absolute;
+  top: 5%;
+  left: 4%;
+  text-decoration: none;
+  font-size: clamp(11px, 1.1vw, 13px);
+  font-weight: 600;
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: rgba(253, 252, 248, 0.75);
+  transition: color 0.2s ease;
+}
+
+.hero-admin-link:hover {
+  color: #fdfcf8;
+}
+
+.hero-nav-overlay {
+  position: absolute;
+  top: 5%;
+  right: 4%;
+  display: flex;
+  align-items: center;
+  gap: clamp(16px, 2.6vw, 40px);
+}
+
+.hero-nav-overlay a {
+  text-decoration: none;
+  font-size: clamp(11px, 1.1vw, 14px);
+  font-weight: 600;
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: #fdfcf8;
+  transition: opacity 0.2s ease;
+}
+
+.hero-nav-overlay a:hover {
+  opacity: 0.6;
+}
+
+/* Hamburger menu — hidden on desktop, shown in its place under 768px. */
+.hamburger-btn {
+  display: none;
+  position: absolute;
+  top: 5%;
+  right: 4%;
+  width: 40px;
+  height: 40px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  background: rgba(28, 31, 22, 0.3);
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 20;
+}
+
+.hamburger-btn span {
+  width: 18px;
+  height: 2px;
+  background: #fdfcf8;
+  border-radius: 2px;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.hamburger-btn.open span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.hamburger-btn.open span:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger-btn.open span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+.mobile-nav {
+  display: none;
+  flex-direction: column;
+  position: absolute;
+  top: calc(5% + 48px);
+  right: 4%;
+  min-width: 190px;
+  background: #1c1f16;
+  border-radius: var(--radius-md);
+  padding: 8px 0;
+  box-shadow: var(--shadow-lg);
+  z-index: 20;
+}
+
+.mobile-nav.open {
+  display: flex;
+}
+
+.mobile-nav a {
+  padding: 12px 20px;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: #fdfcf8;
+}
+
+.mobile-nav a:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.hero-cta-overlay {
+  position: absolute;
+  top: 68%;
+  left: 5.6%;
+  display: inline-flex;
+  align-items: center;
+  background: #fdfcf8;
+  color: #1c1f16;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: clamp(12px, 1.3vw, 15px);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  padding: clamp(10px, 1.6vw, 18px) clamp(18px, 2.8vw, 34px);
+  border-radius: 999px;
+  box-shadow: var(--shadow-lg);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.hero-cta-overlay:hover {
+  transform: translateY(-3px);
+}
+
+/* Dedicated portrait crop below 768px, with the nav collapsed into a
+   hamburger menu and the CTA repositioned to sit under "map". Measured
+   against mobile_hero.png's actual layout (map text spans ~54%–71% of the
+   image height, ~6%–94% of the width). */
+@media (max-width: 768px) {
+  .hero-image-wrap {
+    aspect-ratio: 9 / 16;
+    background-image: url('site-images/mobile_hero.png');
+  }
+
+  .hero-nav-overlay {
+    display: none;
+  }
+
+  .hamburger-btn {
+    display: flex;
+  }
+
+  .hero-cta-overlay {
+    top: 76%;
+    left: 6.4%;
+  }
+}
+
+/* Secondary entry points */
+.home-links {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  flex-wrap: wrap;
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 60px 40px;
+}
+
+.home-link-card {
+  flex: 1;
+  min-width: 240px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 22px 24px;
+  text-decoration: none;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.home-link-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+}
+
+.home-link-card h3 {
+  font-family: var(--font-heading);
+  font-size: 20px;
+  margin: 0 0 6px 0;
+  color: var(--color-primary);
+}
+
+.home-link-card p {
+  margin: 0;
+  font-size: 14px;
+  color: var(--color-text-muted);
+  line-height: 1.5;
+}
+
+/* Footer — left padding clears the fixed coffee button in the corner. */
+.home-footer {
+  padding: 24px 40px 40px 92px;
+  color: var(--color-text-muted);
+  font-size: 13px;
+}
+
+/* Buy me a coffee — the tooltip is 0-width/hidden until the wrapper is
+   hovered, then slides out to the right from behind the circle. */
+.coffee-wrap {
+  position: fixed;
+  bottom: 24px;
+  left: 24px;
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+}
+
+.coffee-button {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  color: var(--color-primary-contrast);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-lg);
+  text-decoration: none;
+  flex-shrink: 0;
+  transition: background 0.2s ease;
+}
+
+.coffee-wrap:hover .coffee-button {
+  background: var(--color-primary-hover);
+}
+
+.coffee-button svg {
+  width: 22px;
+  height: 22px;
+}
+
+.coffee-tooltip {
+  max-width: 0;
+  opacity: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  background: var(--color-surface);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+  box-shadow: var(--shadow-md);
+  padding: 0;
+  margin-left: 0;
+  transition: max-width 0.35s ease, opacity 0.3s ease, padding 0.35s ease, margin-left 0.35s ease;
+}
+
+.coffee-wrap:hover .coffee-tooltip {
+  max-width: 340px;
+  opacity: 1;
+  padding: 10px 18px;
+  margin-left: 12px;
+}
+
+@media (max-width: 640px) {
+  .home-links {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+}

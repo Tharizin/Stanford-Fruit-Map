@@ -1,62 +1,64 @@
-export const icons = {
-  "Pomelo": L.icon({ iconUrl: 'icons/pomelo.png', iconSize: [60,60], iconAnchor: [30,30], popupAnchor: [0,-25] }),
-  "Loquat": L.icon({ iconUrl: 'icons/loquat.png', iconSize: [60,60], iconAnchor: [30,30], popupAnchor: [0,-25] }),
-  "Apple": L.icon({ iconUrl: 'icons/apple.png', iconSize: [60,60], iconAnchor: [30,30], popupAnchor: [0,-25] }),
-  "Plum": L.icon({ iconUrl: 'icons/plum.png', iconSize: [60,60], iconAnchor: [30,30], popupAnchor: [0,-25] }),
-  "Opuntia": L.icon({ iconUrl: 'icons/opuntia.png', iconSize: [60,60], iconAnchor: [30,30], popupAnchor: [0,-25] }),
-  "Natal": L.icon({ iconUrl: 'icons/natal.png', iconSize: [60,60], iconAnchor: [30,30], popupAnchor: [0,-25] }),
-  "Lilly": L.icon({ iconUrl: 'icons/lilly.png', iconSize: [60,60], iconAnchor: [30,30], popupAnchor: [0,-25] }),
-  "Feijoa": L.icon({ iconUrl: 'icons/feijoa.png', iconSize: [60,60], iconAnchor: [30,30], popupAnchor: [0,-25] }),
-  "Fig": L.icon({ iconUrl: 'icons/fig.png', iconSize: [60,60], iconAnchor: [30,30], popupAnchor: [0,-25] }),
-  "Lime": L.icon({ iconUrl: 'icons/lime.png', iconSize: [60,60], iconAnchor: [30,30], popupAnchor: [0,-25] }),
-  "Lemon": L.icon({ iconUrl: 'icons/lemon.png', iconSize: [60,60], iconAnchor: [30,30], popupAnchor: [0,-25] }),
-  "Kumquat": L.icon({ iconUrl: 'icons/kumquat.png', iconSize: [60,60], iconAnchor: [30,30], popupAnchor: [0,-25] }),
-  "Hachiya": L.icon({ iconUrl: 'icons/hachiya.png', iconSize: [60,60], iconAnchor: [30,30], popupAnchor: [0,-25] }),
-  "Kousa": L.icon({ iconUrl: 'icons/kousa.png', iconSize: [48,48], iconAnchor: [30,30], popupAnchor: [0,-25] }),
-  "Orange": L.icon({ iconUrl: 'icons/orange.png', iconSize: [60,60], iconAnchor: [30,30], popupAnchor: [0,-25] }),
-  "Fuyu": L.icon({ iconUrl: 'icons/fuyu.png', iconSize: [60,60], iconAnchor: [30,30], popupAnchor: [0,-25] }),
-  "Avocado": L.icon({ iconUrl: 'icons/avocado.png', iconSize: [60,60], iconAnchor: [30,30], popupAnchor: [0,-25] }),
-  "Canary": L.icon({ iconUrl: 'icons/canary.png', iconSize: [60,60], iconAnchor: [30,30], popupAnchor: [0,-25] }),
-  "Grape": L.icon({ iconUrl: 'icons/grape.png', iconSize: [60,60], iconAnchor: [30,30], popupAnchor: [0,-25] }),
-  "Quince": L.icon({ iconUrl: 'icons/quince.png', iconSize: [60,60], iconAnchor: [30,30], popupAnchor: [0,-25] }),
-  "Passion": L.icon({ iconUrl: 'icons/passion.png', iconSize: [60,60], iconAnchor: [30,30], popupAnchor: [0,-25] }),
-  "Pomegranate": L.icon({ iconUrl: 'icons/pomegranate.png', iconSize: [45,45], iconAnchor: [30,30], popupAnchor: [0,-25] }),
-  "Arbutus": L.icon({ iconUrl: 'icons/arbutus.png', iconSize: [60,60], iconAnchor: [30,30], popupAnchor: [0,-25] }),
-  "Fall": L.icon({ iconUrl: 'icons/fall.png', iconSize: [60,60], iconAnchor: [30,30], popupAnchor: [0,-25] }),
-  "Asian": L.icon({ iconUrl: 'icons/asian.png', iconSize: [60,60], iconAnchor: [30,30], popupAnchor: [0,-25] }),
-  "Cherry": L.icon({ iconUrl: 'icons/cherry.png', iconSize: [60,60], iconAnchor: [30,30], popupAnchor: [0,-25] }),
-  "Trifoliate": L.icon({ iconUrl: 'icons/trifoliate.png', iconSize: [60,60], iconAnchor: [30,30], popupAnchor: [0,-25] }),
-  "Dragonfruit": L.icon({ iconUrl: 'icons/dragonfruit.png', iconSize: [60,60], iconAnchor: [30,30], popupAnchor: [0,-25] }),
-  "Nectarine": L.icon({ iconUrl: 'icons/nectarine.png', iconSize: [60,60], iconAnchor: [30,30], popupAnchor: [0,-25] })
+import { MAPTILER_API_KEY } from './mapTilerConfig.js';
+
+// Builds a Leaflet icon from a species' icon_key (e.g. "Apple" -> icons/apple.png).
+// A null/missing icon_key falls back to Leaflet's default marker pin, so
+// species without custom artwork still show up on the map.
+export function buildIcon(iconKey) {
+  if (!iconKey) return undefined;
+  return L.icon({
+    iconUrl: `icons/${iconKey.toLowerCase()}.png`,
+    iconSize: [60, 60],
+    iconAnchor: [30, 30],
+    popupAnchor: [0, -25],
+  });
+}
+
+// "basic-v2" was picked deliberately over MapTiler's other styles: it's
+// the one with no amenity/POI icon clutter (no parking/food/shop pins),
+// while still labeling every street and the main campus building name at
+// a legible size — the combination this map actually needs (find a street,
+// not browse nearby coffee shops). "bright-v2" and "outdoor-v2" both label
+// buildings too, but bury them under dozens of icons; "streets-v2" is
+// clean but labels fewer streets at a smaller size.
+const TILE_SOURCES = {
+  streets: `https://api.maptiler.com/maps/basic-v2/{z}/{x}/{y}{r}.png?key=${MAPTILER_API_KEY}`,
+  satellite: `https://api.maptiler.com/tiles/satellite-v2/{z}/{x}/{y}.jpg?key=${MAPTILER_API_KEY}`,
 };
 
-// Alias Map
-export const iconAlias = {
-  "Natal Plum": "Natal",
-  "Brush Cherry": "Lilly",
-  "Hachiya Persimmon": "Hachiya",
-  "Kousa Dogwood": "Kousa",
-  "Prickly Pear": "Opuntia",
-  "Fuyu Persimmon": "Fuyu",
-  "Canary Island Date Palm": "Canary",
-  "Passionfruit": "Passion",
-  "Strawberry Tree": "Arbutus",
-  "Fall Loquat": "Fall",
-  "Asian Pear": "Asian",
-  "Trifoliate Orange": "Trifoliate",
-  "Japanese Quince": "Quince"
-};
+const TILE_ATTRIBUTION = '&copy; <a href="https://www.maptiler.com/copyright/" target="_blank" rel="noopener">MapTiler</a> &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors';
 
-export function initializeMap() {
-  const map = L.map("map", {
-    zoomControl: false  // Disable default zoom control
+let activeTileLayer = null;
+
+// MapTiler's "-v2" styles are rendered from vector tiles at a native 512px
+// tile size, not the classic 256px raster convention. Without
+// tileSize/zoomOffset, Leaflet requests them as 256px tiles and everything
+// ends up rendered one zoom level too coarse.
+function tileOptions(basemapStyle) {
+  const base = {
+    maxZoom: 20,
+    detectRetina: true,
+    attribution: TILE_ATTRIBUTION,
+  };
+  return basemapStyle === 'streets' ? { ...base, tileSize: 512, zoomOffset: -1 } : base;
+}
+
+export function initializeMap(basemapStyle = 'streets') {
+  const map = L.map('map', {
+    zoomControl: false,
   }).setView([37.424, -122.166], 16);
-  
-  // Add zoom control in a different position
+
   L.control.zoom({
-    position: 'bottomleft'
+    position: 'bottomleft',
   }).addTo(map);
-  
-  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", { maxZoom: 19 }).addTo(map);
+
+  activeTileLayer = L.tileLayer(TILE_SOURCES[basemapStyle] || TILE_SOURCES.streets, tileOptions(basemapStyle)).addTo(map);
+
   return map;
+}
+
+// Swaps the basemap in place (called on the streets/satellite toggle)
+// without disturbing pan/zoom/markers.
+export function updateMapTiles(map, basemapStyle) {
+  if (activeTileLayer) map.removeLayer(activeTileLayer);
+  activeTileLayer = L.tileLayer(TILE_SOURCES[basemapStyle] || TILE_SOURCES.streets, tileOptions(basemapStyle)).addTo(map);
 }

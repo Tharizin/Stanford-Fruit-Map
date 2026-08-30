@@ -1,9 +1,77 @@
+@import "theme.css";
+
+* {
+  box-sizing: border-box;
+}
+
 body, html {
   margin: 0;
   padding: 0;
   height: 100%;
   width: 100%;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  font-family: var(--font-body);
+  background: var(--color-bg);
+  color: var(--color-text);
+}
+
+/* Auto-hiding scrollbars for small internal panels only (modals, photo
+   strips): invisible at rest, a thin rounded bar on hover/scroll. */
+.modal,
+.edible-photo-strip {
+  scrollbar-width: none;
+}
+
+.modal:hover, .modal:focus-within,
+.edible-photo-strip:hover, .edible-photo-strip:focus-within {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-primary) transparent;
+}
+
+.modal::-webkit-scrollbar,
+.edible-photo-strip::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+  background: transparent;
+}
+
+.modal::-webkit-scrollbar-thumb,
+.edible-photo-strip::-webkit-scrollbar-thumb {
+  background: transparent;
+  border-radius: 999px;
+}
+
+.modal:hover::-webkit-scrollbar-thumb, .modal:active::-webkit-scrollbar-thumb,
+.edible-photo-strip:hover::-webkit-scrollbar-thumb, .edible-photo-strip:active::-webkit-scrollbar-thumb {
+  background: rgba(85, 107, 47, 0.35);
+}
+
+/* Page scrollbar: permanent and discreet, and flush against the real edge
+   of the screen — the scroll container is the full-width `.page`, not the
+   inset centered `.page-content` box, and it never appears/disappears so
+   it can't shift the layout. */
+.page {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(85, 107, 47, 0.35) transparent;
+}
+
+.page::-webkit-scrollbar {
+  width: 8px;
+  background: transparent;
+}
+
+.page::-webkit-scrollbar-thumb {
+  background: rgba(85, 107, 47, 0.35);
+  border-radius: 999px;
+}
+
+.page::-webkit-scrollbar-thumb:hover {
+  background: rgba(85, 107, 47, 0.55);
+}
+
+h1, h2, h3 {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  line-height: 1.15;
 }
 
 /* Navigation Bar */
@@ -12,51 +80,62 @@ body, html {
   top: 0;
   left: 0;
   right: 0;
-  height: 60px;
-  background: #2c5f2d;
-  color: white;
+  height: var(--nav-height);
+  background: var(--color-accent);
+  color: var(--color-accent-contrast);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 20px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  padding: 0 24px;
+  box-shadow: var(--shadow-md);
   z-index: 2000;
 }
 
 .nav-brand {
-  font-size: 20px;
-  font-weight: bold;
+  font-family: var(--font-heading);
+  font-size: 21px;
+  font-weight: 600;
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
 }
 
 .nav-links {
   display: flex;
-  gap: 25px;
+  gap: 8px;
 }
 
 .nav-link {
-  color: white;
+  color: var(--color-accent-contrast);
   text-decoration: none;
-  font-size: 16px;
-  padding: 8px 12px;
-  border-radius: 4px;
-  transition: background 0.3s;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  padding: 8px 14px;
+  border-radius: var(--radius-sm);
+  transition: background 0.2s ease;
 }
 
 .nav-link:hover {
-  background: rgba(255,255,255,0.1);
+  background: rgba(255, 255, 255, 0.12);
 }
 
 .nav-link.active {
-  background: rgba(255,255,255,0.2);
-  font-weight: bold;
+  background: rgba(255, 255, 255, 0.22);
+  font-weight: 600;
 }
 
 /* Page container */
 .page {
   display: none;
-  padding-top: 60px; /* Account for navbar */
+  padding-top: var(--nav-height);
   height: 100vh;
   width: 100%;
+  overflow-y: auto;
 }
 
 .page.active {
@@ -71,189 +150,828 @@ body, html {
 #map-page #map {
   height: 100vh;
   width: 100%;
-  padding-top: 60px; /* Space for navbar */
+  padding-top: var(--nav-height);
+  background: var(--color-bg);
 }
 
-/* Filter container - adjust position */
-#filter-container {
+/* Map controls (season filter + basemap toggle) */
+#map-controls {
   position: absolute;
-  top: 70px;  /* Below navbar */
-  left: 10px;
-  background: white;
-  padding: 10px 15px;
-  border-radius: 5px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+  top: calc(var(--nav-height) + 12px);
+  left: 12px;
   z-index: 1000;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+#filter-container {
+  background: var(--color-surface);
+  padding: 10px 16px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-md);
   display: flex;
   align-items: center;
   gap: 10px;
 }
 
 #filter-container label {
-  font-weight: bold;
+  font-weight: 600;
   font-size: 14px;
+  color: var(--color-text);
 }
 
 #season-filter {
-  padding: 5px 10px;
-  border: 1px solid #ccc;
-  border-radius: 3px;
+  padding: 6px 10px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
   font-size: 14px;
+  font-family: inherit;
+  background: var(--color-surface);
+  color: var(--color-text);
   cursor: pointer;
+}
+
+#basemap-toggle {
+  display: flex;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+  padding: 4px;
+  gap: 4px;
+}
+
+#basemap-toggle button {
+  border: none;
+  background: transparent;
+  padding: 7px 14px;
+  border-radius: var(--radius-sm);
+  font-size: 14px;
+  font-weight: 600;
+  font-family: inherit;
+  color: var(--color-text-muted);
+  cursor: pointer;
+}
+
+#basemap-toggle button:hover {
+  color: var(--color-text);
+}
+
+#basemap-toggle button.active {
+  background: var(--color-primary);
+  color: var(--color-primary-contrast);
+}
+
+/* "Showing: <fruit> only" badge, shown when Find on Map filters the map
+   down to a single species. */
+#type-filter-badge {
+  display: none;
+  position: absolute;
+  top: calc(var(--nav-height) + 12px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--color-primary);
+  color: var(--color-primary-contrast);
+  padding: 8px 8px 8px 16px;
+  border-radius: 30px;
+  box-shadow: var(--shadow-md);
+  z-index: 1000;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+#clearTypeFilterBtn {
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  color: inherit;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 13px;
+  line-height: 1;
+}
+
+#clearTypeFilterBtn:hover {
+  background: rgba(255, 255, 255, 0.35);
+}
+
+/* Non-blocking substitute for alert() when a fetch fails — a real dialog
+   would freeze the page for every visitor until dismissed. */
+#load-error-banner {
+  display: none;
+  position: absolute;
+  top: calc(var(--nav-height) + 12px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--color-danger);
+  color: var(--color-accent-contrast);
+  padding: 10px 18px;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+  z-index: 1600;
+  font-size: 14px;
+  font-weight: 600;
+  max-width: 90vw;
+  text-align: center;
 }
 
 /* Content pages */
 .page-content {
   max-width: 900px;
   margin: 0 auto;
-  padding: 40px 20px;
-  overflow-y: auto;
-  height: calc(100vh - 60px);
+  padding: 40px 24px;
+}
+
+/* Gallery-style pages (Fruit Gallery, Edible Plants) get a wider column so
+   cards can lay out four-across on a typical desktop instead of three. */
+.page-content.wide {
+  max-width: 1300px;
 }
 
 .page-content h1 {
-  color: #2c5f2d;
-  margin-bottom: 10px;
+  color: var(--color-primary);
+  margin-bottom: 8px;
+  font-size: 32px;
 }
 
 .page-content h2 {
-  color: #2c5f2d;
-  margin-top: 30px;
-  margin-bottom: 15px;
+  color: var(--color-primary);
+  margin-top: 32px;
+  margin-bottom: 14px;
+  font-size: 22px;
 }
 
 .page-content h3 {
-  color: #2c5f2d;
+  color: var(--color-text);
   margin-top: 20px;
   margin-bottom: 10px;
+  font-size: 17px;
+}
+
+.page-content p, .page-content li {
+  line-height: 1.6;
+  color: var(--color-text);
 }
 
 .subtitle {
-  color: #666;
-  font-size: 18px;
+  color: var(--color-text-muted);
+  font-size: 17px;
   margin-bottom: 30px;
+}
+
+.empty-state {
+  color: var(--color-text-muted);
+  font-style: italic;
+}
+
+/* About page: a fixed background photo behind everything, so every block
+   of content gets its own opaque, rounded card rather than sitting
+   directly on the photo. */
+#about-page {
+  background-image: url('../../site-images/fig_about_page.jpg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+.about-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 24px 28px;
+  margin-bottom: 24px;
+  box-shadow: var(--shadow-sm);
+}
+
+.about-header {
+  padding-bottom: 12px;
+}
+
+.about-header h1 {
+  margin-top: 0;
+}
+
+/* About sub-navigation */
+.about-subnav {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 0;
+  border-bottom: 1px solid var(--color-border);
+  padding-bottom: 4px;
+}
+
+.about-subnav button {
+  background: none;
+  border: none;
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--color-text-muted);
+  padding: 8px 16px;
+  border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.about-subnav button:hover {
+  background: var(--color-primary-tint);
+  color: var(--color-text);
+}
+
+.about-subnav button.active {
+  background: var(--color-primary-tint);
+  color: var(--color-primary);
+  font-weight: 600;
+}
+
+.about-subpage {
+  display: none;
+}
+
+.about-subpage.active {
+  display: block;
 }
 
 /* FAQ items */
 .faq-item {
-  margin-bottom: 25px;
-  padding: 20px;
-  background: #f9f9f9;
-  border-radius: 8px;
-  border-left: 4px solid #2c5f2d;
+  margin-bottom: 20px;
+  padding: 20px 24px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  border-left: 4px solid var(--color-primary);
+  box-shadow: var(--shadow-sm);
 }
 
 .faq-item h3 {
   margin-top: 0;
 }
 
+/* About page: text sections, and a real photo next to the creator bio.
+   Each is wrapped in .about-card for an opaque box over the background
+   photo — these rules just handle layout within that box. */
+.about-pair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+.about-pair .about-section {
+  margin-bottom: 0;
+}
+
+.about-section h2 {
+  margin-top: 0;
+}
+
+.about-creator {
+  display: flex;
+  gap: 32px;
+  align-items: center;
+}
+
+.about-creator-photo {
+  flex: 0 0 320px;
+  width: 320px;
+  height: 320px;
+  object-fit: cover;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+}
+
+.about-creator h2 {
+  margin-top: 0;
+}
+
+@media (max-width: 640px) {
+  .about-pair {
+    grid-template-columns: 1fr;
+  }
+
+  .about-creator {
+    flex-direction: column;
+  }
+
+  .about-creator-photo {
+    flex-basis: auto;
+    width: 100%;
+    height: auto;
+  }
+}
+
 /* Fruit Gallery Grid */
-#fruit-grid {
+#fruit-grid, #edible-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   gap: 20px;
   margin-top: 30px;
 }
 
-.fruit-card {
-  background: white;
-  border-radius: 8px;
+.fruit-card, .edible-tile {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
   overflow: hidden;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  transition: transform 0.3s, box-shadow 0.3s;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
   cursor: pointer;
 }
 
-.fruit-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+.fruit-card:hover, .edible-tile:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
 }
 
-.fruit-card img {
+.fruit-card img, .edible-tile img, .edible-tile-placeholder {
   width: 100%;
-  height: 200px;
+  height: 220px;
   object-fit: cover;
+  display: block;
+  background: var(--color-primary-tint);
 }
 
-.fruit-card-content {
-  padding: 15px;
+.fruit-card-content, .edible-tile-content {
+  padding: 16px 18px;
 }
 
-.fruit-card h3 {
-  margin: 0 0 10px 0;
-  color: #2c5f2d;
+.fruit-card h3, .edible-tile-content h3 {
+  margin: 0 0 6px 0;
+  color: var(--color-primary);
+  font-size: 17px;
 }
 
-.fruit-card p {
-  margin: 5px 0;
+.scientific-name {
+  font-style: italic;
+  color: var(--color-text-muted);
   font-size: 14px;
-  color: #666;
-}
-
-/* Sidebar styling */
-#sidebar {
-  position: fixed;
-  top: 0;
-  right: -350px;
-  width: 350px;
-  height: 100vh;
-  background: white;
-  box-shadow: -4px 0 10px rgba(0,0,0,0.2);
-  overflow-y: auto;
-  transition: right 0.3s ease;
-  padding: 16px;
-  padding-top: 70px; /* Account for navbar */
-  z-index: 1500;
-  box-sizing: border-box;
-}
-
-#sidebar.open {
-  right: 0;
-}
-
-#closeSidebar {
-  position: absolute;
-  top: 70px;
-  right: 10px;
-  border: none;
-  background: none;
-  font-size: 1.5em;
-  cursor: pointer;
-  color: #333;
-  padding: 5px;
-}
-
-#closeSidebar:hover {
-  color: #000;
+  margin: 0;
 }
 
 .info-button {
-  background: #4CAF50;
-  color: white;
+  background: var(--color-primary);
+  color: var(--color-primary-contrast);
   border: none;
-  padding: 5px 12px;
-  border-radius: 4px;
+  padding: 6px 14px;
+  border-radius: var(--radius-sm);
   cursor: pointer;
   font-size: 14px;
-  margin-top: 5px;
+  font-weight: 500;
+  margin-top: 6px;
 }
 
 .info-button:hover {
-  background: #45a049;
+  background: var(--color-primary-hover);
+}
+
+/* Report a Sighting button */
+#reportSightingBtn {
+  position: absolute;
+  bottom: 24px;
+  right: 24px;
+  background: var(--color-primary);
+  color: var(--color-primary-contrast);
+  border: none;
+  padding: 13px 22px;
+  border-radius: 30px;
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: var(--shadow-lg);
+  z-index: 1000;
+}
+
+#reportSightingBtn:hover {
+  background: var(--color-primary-hover);
+}
+
+/* Buy me a coffee — the tooltip is 0-width/hidden until the wrapper is
+   hovered, then slides out to the right from behind the circle. */
+.coffee-wrap {
+  position: fixed;
+  bottom: 24px;
+  left: 24px;
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+}
+
+.coffee-button {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  color: var(--color-primary-contrast);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-lg);
+  text-decoration: none;
+  flex-shrink: 0;
+  transition: background 0.2s ease;
+}
+
+.coffee-wrap:hover .coffee-button {
+  background: var(--color-primary-hover);
+}
+
+.coffee-button svg {
+  width: 22px;
+  height: 22px;
+}
+
+.coffee-tooltip {
+  max-width: 0;
+  opacity: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  background: var(--color-surface);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+  box-shadow: var(--shadow-md);
+  padding: 0;
+  margin-left: 0;
+  transition: max-width 0.35s ease, opacity 0.3s ease, padding 0.35s ease, margin-left 0.35s ease;
+}
+
+.coffee-wrap:hover .coffee-tooltip {
+  max-width: 340px;
+  opacity: 1;
+  padding: 10px 18px;
+  margin-left: 12px;
+}
+
+/* Modals (Report a Sighting, Edible Plant detail) */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: var(--overlay-scrim);
+  z-index: 3000;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-overlay.open {
+  display: flex;
+}
+
+.modal {
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  padding: 28px;
+  width: 90%;
+  max-width: 440px;
+  max-height: 85vh;
+  overflow-y: auto;
+  position: relative;
+  box-sizing: border-box;
+  box-shadow: var(--shadow-lg);
+}
+
+.modal.modal-wide {
+  max-width: 640px;
+}
+
+.modal h2 {
+  color: var(--color-primary);
+  margin-top: 0;
+}
+
+.modal-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  border: none;
+  background: none;
+  font-size: 1.3em;
+  cursor: pointer;
+  color: var(--color-text-muted);
+}
+
+.modal-close:hover {
+  color: var(--color-text);
+}
+
+.info-box {
+  background: var(--color-primary-tint);
+  border-radius: var(--radius-md);
+  padding: 16px 18px;
+  margin-top: 16px;
+}
+
+.info-box h4 {
+  margin: 0 0 8px 0;
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.info-box p {
+  margin: 0;
+  color: var(--color-text);
+  line-height: 1.6;
+}
+
+.edible-photo-strip {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  margin-bottom: 16px;
+  border-radius: var(--radius-md);
+}
+
+.edible-photo-strip img {
+  height: 220px;
+  width: auto;
+  border-radius: var(--radius-md);
+  flex-shrink: 0;
+  object-fit: cover;
+}
+
+.photo-placeholder-lg {
+  height: 220px;
+  width: 180px;
+  flex-shrink: 0;
+  border-radius: var(--radius-md);
+  background: var(--color-primary-tint);
+  border: 1px dashed var(--color-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: var(--color-text-muted);
+  font-size: 13px;
+  padding: 10px;
+}
+
+.ripening-line {
+  color: var(--color-text-muted);
+  margin: 4px 0 0 0;
+}
+
+.find-on-map-btn {
+  background: var(--color-accent);
+  color: var(--color-accent-contrast);
+  border: none;
+  padding: 11px 20px;
+  border-radius: var(--radius-sm);
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+.find-on-map-btn:hover {
+  background: var(--color-accent-hover);
+}
+
+#reportForm,
+#sharePhotoForm,
+#funPhotoForm {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+#reportForm label,
+#sharePhotoForm label,
+#funPhotoForm label {
+  font-weight: 600;
+  font-size: 14px;
+  margin-top: 10px;
+  color: var(--color-text);
+}
+
+#reportForm select,
+#reportForm input[type="text"],
+#reportForm input[type="number"],
+#reportForm input[type="file"],
+#reportForm textarea,
+#sharePhotoForm select,
+#sharePhotoForm input[type="file"],
+#sharePhotoForm textarea,
+#funPhotoForm input[type="text"],
+#funPhotoForm input[type="file"] {
+  padding: 9px 11px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  font-size: 14px;
+  font-family: inherit;
+  background: var(--color-surface);
+  color: var(--color-text);
+}
+
+.coord-divider {
+  font-size: 12px;
+  color: var(--color-text-muted);
+  text-align: center;
+  margin: 10px 0 2px;
+}
+
+.coord-input-row {
+  display: flex;
+  gap: 8px;
+}
+
+.coord-input-row input {
+  flex: 1;
+  min-width: 0;
+}
+
+#reportForm textarea,
+#sharePhotoForm textarea {
+  min-height: 60px;
+  resize: vertical;
+}
+
+#reportNewSpeciesField {
+  display: none;
+}
+
+#reportLocationStatus {
+  font-size: 13px;
+  color: var(--color-text-muted);
+  margin: 4px 0;
+}
+
+#pickLocationBtn,
+#reportSubmitBtn,
+#reportDoneBtn,
+#sharePhotoSubmitBtn,
+#sharePhotoDoneBtn,
+#funPhotoSubmitBtn,
+#funPhotoDoneBtn {
+  background: var(--color-primary);
+  color: var(--color-primary-contrast);
+  border: none;
+  padding: 11px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: inherit;
+  margin-top: 8px;
+}
+
+#pickLocationBtn:hover,
+#reportSubmitBtn:hover,
+#reportDoneBtn:hover,
+#sharePhotoSubmitBtn:hover,
+#sharePhotoDoneBtn:hover,
+#funPhotoSubmitBtn:hover,
+#funPhotoDoneBtn:hover {
+  background: var(--color-primary-hover);
+}
+
+#reportSuccess,
+#sharePhotoSuccess,
+#funPhotoSuccess {
+  display: none;
+  text-align: center;
+}
+
+/* Share a Photo entry points */
+.modal-subtext {
+  color: var(--color-text-muted);
+  font-size: 14px;
+  margin: -8px 0 16px;
+}
+
+.page-header-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.share-photo-open-btn {
+  flex-shrink: 0;
+  background: var(--color-accent);
+  color: var(--color-accent-contrast);
+  border: none;
+  padding: 12px 20px;
+  border-radius: 999px;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 4px;
+}
+
+.share-photo-open-btn:hover {
+  background: var(--color-accent-hover);
+}
+
+.share-photo-link {
+  display: inline-block;
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 10px 0 0;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-primary);
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.share-photo-link:hover {
+  color: var(--color-primary-hover);
+}
+
+.community-invite-link {
+  display: inline-block;
+  margin-top: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-accent);
+  text-decoration: none;
+}
+
+.community-invite-link:hover {
+  color: var(--color-accent-hover);
+  text-decoration: underline;
+}
+
+/* Community Finds gallery */
+#community-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+  margin-top: 30px;
+}
+
+.community-tile {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+
+.community-tile img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  display: block;
+}
+
+.community-tile-content {
+  padding: 14px 16px;
+}
+
+.community-caption {
+  margin: 0 0 6px 0;
+  color: var(--color-text);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.community-meta {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wide);
 }
 
 /* Responsive design */
 @media (max-width: 768px) {
   .nav-links {
-    gap: 10px;
+    gap: 4px;
     font-size: 14px;
   }
-  
+
+  .nav-link {
+    padding: 6px 10px;
+    font-size: 13px;
+  }
+
   .nav-brand {
     font-size: 16px;
   }
-  
-  #fruit-grid {
+
+  .nav-right {
+    gap: 10px;
+  }
+
+  #fruit-grid, #edible-grid {
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   }
 }
