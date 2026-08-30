@@ -503,6 +503,25 @@ function initNav(plants) {
   });
 }
 
+function initNavHamburger() {
+  const btn = document.getElementById('navHamburgerBtn');
+  const menu = document.getElementById('navMobileMenu');
+
+  btn.addEventListener('click', () => {
+    const isOpen = menu.classList.toggle('open');
+    btn.classList.toggle('open', isOpen);
+    btn.setAttribute('aria-expanded', String(isOpen));
+  });
+
+  menu.querySelectorAll('.nav-link').forEach(link => {
+    link.addEventListener('click', () => {
+      menu.classList.remove('open');
+      btn.classList.remove('open');
+      btn.setAttribute('aria-expanded', 'false');
+    });
+  });
+}
+
 function initAboutSubnav() {
   document.querySelectorAll('.about-subnav button').forEach(button => {
     button.addEventListener('click', () => {
@@ -563,6 +582,7 @@ async function init() {
 
   plants.forEach(addMarker);
   initNav(plants);
+  initNavHamburger();
   // Whatever tab showPage() already switched to on script load (e.g. a
   // homepage link landing on #gallery) can only populate its grid now
   // that plantInfo/plants/ediblePlants have actually loaded.

@@ -97,7 +97,7 @@ a {
 .hamburger-btn {
   display: none;
   position: absolute;
-  top: 5%;
+  top: calc(5% - 24px);
   right: 4%;
   width: 40px;
   height: 40px;
@@ -136,7 +136,7 @@ a {
   display: none;
   flex-direction: column;
   position: absolute;
-  top: calc(5% + 48px);
+  top: calc(5% + 24px);
   right: 4%;
   min-width: 190px;
   background: #1c1f16;
@@ -207,7 +207,12 @@ a {
 
   .hero-cta-overlay {
     top: 76%;
-    left: 6.4%;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .hero-cta-overlay:hover {
+    transform: translateX(-50%) translateY(-3px);
   }
 }
 

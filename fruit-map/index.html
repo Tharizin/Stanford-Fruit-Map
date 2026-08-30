@@ -13,7 +13,9 @@
 <body>
   <!-- Navigation Bar -->
 <nav id="navbar">
-  <a href="../index.html" class="nav-brand" style="text-decoration: none; color: inherit;">Stanford Fruit Map</a>
+  <a href="../index.html" class="nav-brand" style="text-decoration: none; color: inherit;">
+    <span class="nav-brand-line1">Stanford</span> <span class="nav-brand-line2">Fruit Map</span>
+  </a>
   <div class="nav-right">
     <div class="nav-links">
       <a href="#" data-page="map" class="nav-link active">Map</a>
@@ -21,7 +23,17 @@
       <a href="#" data-page="edible" class="nav-link">Additional Edibles</a>
       <a href="#" data-page="about" class="nav-link">About</a>
     </div>
+    <button id="navHamburgerBtn" class="hamburger-btn" aria-label="Open menu" aria-expanded="false" aria-controls="navMobileMenu">
+      <span></span><span></span><span></span>
+    </button>
   </div>
+</nav>
+
+<nav id="navMobileMenu" class="nav-mobile-menu">
+  <a href="#" data-page="map" class="nav-link">Map</a>
+  <a href="#" data-page="gallery" class="nav-link">Fruit Gallery</a>
+  <a href="#" data-page="edible" class="nav-link">Additional Edibles</a>
+  <a href="#" data-page="about" class="nav-link">About</a>
 </nav>
 
   <!-- MAP PAGE -->
