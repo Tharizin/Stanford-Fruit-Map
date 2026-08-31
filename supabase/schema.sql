@@ -25,7 +25,9 @@
 -- icons for Apricot and Prank Orange on an already-seeded database, and
 -- supabase/migrations/011_real_writeups.sql to replace placeholder/generic
 -- write-ups for Apricot, Grapefruit, Japanese Quince, Bunya Bunya,
--- California Coffeeberry, and Rosemary with real ones.
+-- California Coffeeberry, and Rosemary with real ones, and
+-- supabase/migrations/012_photo_credits.sql to add a `credit` column to
+-- plant_photos and edible_plant_photos for photo attribution.
 
 -- ────────────────────────────────────────────────────────────
 -- plant_info: one row per fruit species.
@@ -182,6 +184,7 @@ create table edible_plant_photos (
   id              uuid primary key default gen_random_uuid(),
   edible_plant_id uuid not null references edible_plants(id) on delete cascade,
   photo_path      text not null,
+  credit          text,          -- shown as "Photo: <credit>" beneath the photo
   sort_order      integer not null default 0,
   created_at      timestamptz not null default now()
 );
@@ -217,6 +220,7 @@ create table plant_photos (
   id          uuid primary key default gen_random_uuid(),
   common_name text not null references plant_info(common_name) on delete cascade,
   photo_path  text not null,
+  credit      text,          -- shown as "Photo: <credit>" beneath the photo
   sort_order  integer not null default 0,
   created_at  timestamptz not null default now()
 );

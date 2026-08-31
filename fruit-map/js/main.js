@@ -150,15 +150,19 @@ function openFruitDetailModal(fruitType) {
   if (!info) return;
 
   const realPhotos = [
-    ...(info.image ? [info.image] : []),
-    ...(info.plant_photos || []).map(p => plantPhotoUrl(p.photo_path)),
+    ...(info.image ? [{ src: info.image, credit: null }] : []),
+    ...(info.plant_photos || []).map(p => ({ src: plantPhotoUrl(p.photo_path), credit: p.credit })),
   ];
   const placeholderCount = Math.max(0, 3 - realPhotos.length);
 
   const content = document.getElementById('fruitDetailModalContent');
   content.innerHTML = `
     <div class="edible-photo-strip">
-      ${realPhotos.map(src => `<img src="${src}" alt="${fruitType}">`).join('')}
+      ${realPhotos.map(p => `
+        <div class="photo-strip-item">
+          <img src="${p.src}" alt="${fruitType}">
+          ${p.credit ? `<p class="photo-credit">Photo: ${p.credit}</p>` : ''}
+        </div>`).join('')}
       ${Array.from({ length: placeholderCount }).map(() => '<div class="photo-placeholder-lg">More ID photos coming soon</div>').join('')}
     </div>
     <button class="share-photo-link" type="button" data-target-type="plant_info" data-target-id="${fruitType}" data-target-label="${fruitType}">+ Share a photo of this</button>
@@ -222,6 +226,7 @@ function initSharePhotoFlow() {
     }
 
     const note = document.getElementById('sharePhotoNote').value.trim();
+    const photographerName = document.getElementById('sharePhotoName').value.trim();
     const submitBtn = document.getElementById('sharePhotoSubmitBtn');
     submitBtn.disabled = true;
     submitBtn.textContent = 'Submitting...';
@@ -232,6 +237,7 @@ function initSharePhotoFlow() {
         targetType: sharePhotoTarget.targetType,
         targetId: sharePhotoTarget.targetId,
         note,
+        photographerName,
         photoFile,
       });
       document.getElementById('sharePhotoForm').style.display = 'none';

@@ -3,7 +3,7 @@ import { supabase } from './supabaseClient.js';
 // One row per species: icon, image, ripening window, months, description,
 // usage, plus any extra admin-uploaded photos beyond the cover `image`.
 export async function fetchPlantInfo() {
-  let { data, error } = await supabase.from('plant_info').select('*, plant_photos(id, photo_path, sort_order)');
+  let { data, error } = await supabase.from('plant_info').select('*, plant_photos(id, photo_path, credit, sort_order)');
   if (error) {
     // plant_photos won't exist until migration 004 has been run — degrade
     // to the cover-image-only view rather than taking the whole map down.
@@ -35,7 +35,7 @@ export async function fetchApprovedPlants() {
 export async function fetchEdiblePlants() {
   const { data, error } = await supabase
     .from('edible_plants')
-    .select('*, edible_plant_photos(id, photo_path, sort_order)')
+    .select('*, edible_plant_photos(id, photo_path, credit, sort_order)')
     .order('common_name');
   if (error) throw error;
   return data.map(plant => ({

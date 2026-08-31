@@ -36,7 +36,11 @@ export function openEdiblePlantModal(entry) {
 
   content.innerHTML = `
     ${photos.length
-      ? `<div class="edible-photo-strip">${photos.map(p => `<img src="${plantPhotoUrl(p.photo_path)}" alt="${entry.common_name}">`).join('')}</div>`
+      ? `<div class="edible-photo-strip">${photos.map(p => `
+          <div class="photo-strip-item">
+            <img src="${plantPhotoUrl(p.photo_path)}" alt="${entry.common_name}">
+            ${p.credit ? `<p class="photo-credit">Photo: ${p.credit}</p>` : ''}
+          </div>`).join('')}</div>`
       : ''}
     <button class="share-photo-link" type="button" data-target-type="edible_plant" data-target-id="${entry.id}" data-target-label="${entry.common_name}">+ Share a photo of this</button>
     <h2>${entry.common_name}</h2>

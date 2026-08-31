@@ -325,3 +325,17 @@ button:hover {
 .photo-thumb .delete-photo-btn:hover {
   background: var(--color-danger-hover);
 }
+
+.photo-thumb-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.photo-credit-input {
+  width: 100%;
+  font-size: 11px;
+  padding: 3px 6px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+}

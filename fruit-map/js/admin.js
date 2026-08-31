@@ -168,7 +168,7 @@ async function reviewPlant(id, status) {
 async function loadSpeciesEditor(selectName) {
   const { data, error } = await supabase
     .from('plant_info')
-    .select('*, plant_photos(id, photo_path, sort_order)')
+    .select('*, plant_photos(id, photo_path, credit, sort_order)')
     .order('common_name');
   if (error) return;
 
@@ -216,15 +216,27 @@ function populateSpeciesForm(commonName) {
   const photos = info.plant_photos || [];
   photosEl.innerHTML = photos.length
     ? photos.map(p => `
-        <div class="photo-thumb">
-          <img src="${plantPhotoUrl(p.photo_path)}" alt="">
-          <button class="delete-photo-btn" data-photo-id="${p.id}" data-photo-path="${p.photo_path}">✕</button>
+        <div class="photo-thumb-wrap">
+          <div class="photo-thumb">
+            <img src="${plantPhotoUrl(p.photo_path)}" alt="">
+            <button class="delete-photo-btn" data-photo-id="${p.id}" data-photo-path="${p.photo_path}">✕</button>
+          </div>
+          <input class="photo-credit-input" type="text" placeholder="Photo credit (optional)" value="${p.credit || ''}" data-photo-id="${p.id}">
         </div>`).join('')
     : '<p class="empty-state">No extra photos yet.</p>';
 
   photosEl.querySelectorAll('.delete-photo-btn').forEach(btn => {
     btn.addEventListener('click', () => deleteSpeciesPhoto(btn.dataset.photoId, btn.dataset.photoPath, commonName));
   });
+  photosEl.querySelectorAll('.photo-credit-input').forEach(input => {
+    input.addEventListener('change', () => updateSpeciesPhotoCredit(input.dataset.photoId, input.value.trim()));
+  });
+}
+
+async function updateSpeciesPhotoCredit(photoId, credit) {
+  const statusEl = document.getElementById('speciesStatus');
+  const { error } = await supabase.from('plant_photos').update({ credit: credit || null }).eq('id', photoId);
+  statusEl.textContent = error ? `Error: ${error.message}` : 'Credit saved.';
 }
 
 document.getElementById('speciesPhotoUpload').addEventListener('change', async (e) => {
@@ -344,7 +356,7 @@ let currentEdiblePlantId = null;
 async function loadEdiblePlantsEditor(selectId) {
   const { data, error } = await supabase
     .from('edible_plants')
-    .select('*, edible_plant_photos(id, photo_path, sort_order)')
+    .select('*, edible_plant_photos(id, photo_path, credit, sort_order)')
     .order('common_name');
   if (error) return;
 
@@ -378,14 +390,20 @@ function populateEdiblePlantForm(id) {
   const photos = info?.edible_plant_photos || [];
   photosEl.innerHTML = photos.length
     ? photos.map(p => `
-        <div class="photo-thumb">
-          <img src="${plantPhotoUrl(p.photo_path)}" alt="">
-          <button class="delete-photo-btn" data-photo-id="${p.id}" data-photo-path="${p.photo_path}">✕</button>
+        <div class="photo-thumb-wrap">
+          <div class="photo-thumb">
+            <img src="${plantPhotoUrl(p.photo_path)}" alt="">
+            <button class="delete-photo-btn" data-photo-id="${p.id}" data-photo-path="${p.photo_path}">✕</button>
+          </div>
+          <input class="photo-credit-input" type="text" placeholder="Photo credit (optional)" value="${p.credit || ''}" data-photo-id="${p.id}">
         </div>`).join('')
     : '<p class="empty-state">No photos yet.</p>';
 
   photosEl.querySelectorAll('.delete-photo-btn').forEach(btn => {
     btn.addEventListener('click', () => deleteEdiblePlantPhoto(btn.dataset.photoId, btn.dataset.photoPath));
+  });
+  photosEl.querySelectorAll('.photo-credit-input').forEach(input => {
+    input.addEventListener('change', () => updateEdiblePlantPhotoCredit(input.dataset.photoId, input.value.trim()));
   });
 
   const uploadInput = document.getElementById('ediblePlantPhotoUpload');
@@ -465,6 +483,12 @@ async function deleteEdiblePlantPhoto(photoId, photoPath) {
   if (!error) await loadEdiblePlantsEditor(currentEdiblePlantId);
 }
 
+async function updateEdiblePlantPhotoCredit(photoId, credit) {
+  const statusEl = document.getElementById('ediblePlantStatus');
+  const { error } = await supabase.from('edible_plant_photos').update({ credit: credit || null }).eq('id', photoId);
+  statusEl.textContent = error ? `Error: ${error.message}` : 'Credit saved.';
+}
+
 // ─── Photo Submissions ────────────────────────────────────────
 // Visitor-submitted photos, pending review. Approving an "ID Photo" files
 // it into plant_photos or edible_plant_photos so it shows up publicly;
@@ -534,7 +558,7 @@ async function approvePhotoSubmission(sub) {
     const nextSortOrder = existing.length ? Math.max(...existing.map(p => p.sort_order)) + 1 : 0;
     const { error } = await supabase
       .from('plant_photos')
-      .insert({ common_name: sub.target_id, photo_path: sub.photo_path, sort_order: nextSortOrder });
+      .insert({ common_name: sub.target_id, photo_path: sub.photo_path, credit: sub.photographer_name || null, sort_order: nextSortOrder });
     if (error) {
       statusEl.textContent = `Error filing photo: ${error.message}`;
       return;
@@ -547,7 +571,7 @@ async function approvePhotoSubmission(sub) {
     const nextSortOrder = existingPhotos?.length ? Math.max(...existingPhotos.map(p => p.sort_order)) + 1 : 0;
     const { error } = await supabase
       .from('edible_plant_photos')
-      .insert({ edible_plant_id: sub.target_id, photo_path: sub.photo_path, sort_order: nextSortOrder });
+      .insert({ edible_plant_id: sub.target_id, photo_path: sub.photo_path, credit: sub.photographer_name || null, sort_order: nextSortOrder });
     if (error) {
       statusEl.textContent = `Error filing photo: ${error.message}`;
       return;

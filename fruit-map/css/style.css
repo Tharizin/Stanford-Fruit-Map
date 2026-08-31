@@ -763,6 +763,20 @@ h1, h2, h3 {
   object-fit: cover;
 }
 
+.photo-strip-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.photo-credit {
+  margin: 4px 0 0;
+  font-size: 11px;
+  color: var(--color-text-muted);
+  text-align: center;
+}
+
 .photo-placeholder-lg {
   height: 220px;
   width: 180px;
