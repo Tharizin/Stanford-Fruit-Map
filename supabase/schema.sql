@@ -27,7 +27,11 @@
 -- write-ups for Apricot, Grapefruit, Japanese Quince, Bunya Bunya,
 -- California Coffeeberry, and Rosemary with real ones, and
 -- supabase/migrations/012_photo_credits.sql to add a `credit` column to
--- plant_photos and edible_plant_photos for photo attribution.
+-- plant_photos and edible_plant_photos for photo attribution, and
+-- supabase/migrations/013_security_hardening.sql for public-launch hardening
+-- (input length/range caps, a pending-submission flood cap, and storage
+-- upload restrictions) — all already baked into this file below for fresh
+-- installs.
 
 -- ────────────────────────────────────────────────────────────
 -- plant_info: one row per fruit species.
@@ -50,17 +54,50 @@ create table plant_info (
 -- ────────────────────────────────────────────────────────────
 create table plants (
   id            uuid primary key default gen_random_uuid(),
-  common_name   text not null,
-  lat           double precision not null,
-  lng           double precision not null,
+  common_name   text not null check (char_length(common_name) <= 100),
+  lat           double precision not null check (lat between -90 and 90),
+  lng           double precision not null check (lng between -180 and 180),
   status        text not null default 'pending' check (status in ('pending', 'approved', 'rejected')),
-  submitter_note text,
+  submitter_note text check (submitter_note is null or char_length(submitter_note) <= 1000),
   photo_path    text,          -- path within the 'plant-photos' storage bucket, set by submitters
   created_at    timestamptz not null default now(),
   reviewed_at   timestamptz
 );
 
 create index plants_status_idx on plants (status);
+
+-- Anti-flood backstop: Postgres/PostgREST has no per-visitor identity for
+-- anonymous inserts, so true per-IP rate limiting isn't available at this
+-- layer — this at least stops unbounded growth from an automated flood by
+-- capping how many *pending* (unreviewed) rows can exist at once. Shared by
+-- both plants and photo_submissions below.
+create or replace function public.enforce_pending_cap(tbl regclass, max_pending integer)
+returns void
+language plpgsql
+as $$
+declare
+  current_count integer;
+begin
+  execute format('select count(*) from %s where status = ''pending''', tbl) into current_count;
+  if current_count >= max_pending then
+    raise exception 'Too many pending submissions right now — please try again later.';
+  end if;
+end;
+$$;
+
+create or replace function public.check_plants_pending_cap()
+returns trigger
+language plpgsql
+as $$
+begin
+  perform public.enforce_pending_cap('public.plants', 500);
+  return new;
+end;
+$$;
+
+create trigger plants_pending_cap
+  before insert on plants
+  for each row execute function public.check_plants_pending_cap();
 
 -- ────────────────────────────────────────────────────────────
 -- admins: membership table — anyone listed here is a site admin.
@@ -248,14 +285,28 @@ create table photo_submissions (
   photo_path        text not null,
   kind              text not null check (kind in ('id_photo', 'fun_photo')),
   target_type       text check (target_type in ('plant_info', 'edible_plant')),
-  target_id         text,
-  submitter_note    text,  -- doubles as the caption for fun_photo submissions
-  photographer_name text,  -- collected for fun_photo submissions
+  target_id         text check (target_id is null or char_length(target_id) <= 200),
+  submitter_note    text check (submitter_note is null or char_length(submitter_note) <= 1000),  -- doubles as the caption for fun_photo submissions
+  photographer_name text check (photographer_name is null or char_length(photographer_name) <= 100),  -- collected for fun_photo submissions
   status            text not null default 'pending' check (status in ('pending', 'approved', 'rejected')),
   created_at        timestamptz not null default now(),
   reviewed_at       timestamptz
 );
 create index photo_submissions_status_idx on photo_submissions (status);
+
+create or replace function public.check_photo_submissions_pending_cap()
+returns trigger
+language plpgsql
+as $$
+begin
+  perform public.enforce_pending_cap('public.photo_submissions', 500);
+  return new;
+end;
+$$;
+
+create trigger photo_submissions_pending_cap
+  before insert on photo_submissions
+  for each row execute function public.check_photo_submissions_pending_cap();
 
 alter table photo_submissions enable row level security;
 
@@ -290,13 +341,27 @@ create policy "photo submissions deletable by admin"
 -- 'plants/<common_name>/', and public photo submissions under
 -- 'photo-submissions/', all in this one bucket.
 -- ────────────────────────────────────────────────────────────
-insert into storage.buckets (id, name, public)
-values ('plant-photos', 'plant-photos', true)
+insert into storage.buckets (id, name, public, file_size_limit, allowed_mime_types)
+values (
+  'plant-photos', 'plant-photos', true,
+  10485760, -- 10 MB
+  array['image/jpeg', 'image/png', 'image/webp', 'image/gif', 'image/heic', 'image/heif']
+)
 on conflict (id) do nothing;
 
-create policy "anyone can upload a plant photo"
+-- Anonymous uploads are only allowed into the two "inbox" prefixes the app
+-- actually writes to for public submissions; every other path (species
+-- photos, edible-plant photos) requires an admin session.
+create policy "public inbox uploads only, admin uploads anywhere"
   on storage.objects for insert
-  with check (bucket_id = 'plant-photos');
+  with check (
+    bucket_id = 'plant-photos'
+    and (
+      name like 'submissions/%'
+      or name like 'photo-submissions/%'
+      or is_admin()
+    )
+  );
 
 create policy "anyone can view plant photos"
   on storage.objects for select

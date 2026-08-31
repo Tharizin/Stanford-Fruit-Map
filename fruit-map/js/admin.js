@@ -1,5 +1,6 @@
 import { supabase } from './supabaseClient.js';
-import { plantPhotoUrl } from './dataService.js';
+import { plantPhotoUrl, safeFileExt } from './dataService.js';
+import { escapeHtml } from './escapeHtml.js';
 
 const MONTHS =['january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december'];
 
@@ -94,7 +95,7 @@ async function loadPending() {
     .order('created_at', { ascending: true });
 
   if (error) {
-    list.innerHTML = `<p class="empty-state">Error loading submissions: ${error.message}</p>`;
+    list.innerHTML = `<p class="empty-state">Error loading submissions: ${escapeHtml(error.message)}</p>`;
     return;
   }
 
@@ -111,10 +112,10 @@ async function loadPending() {
     const mapLink = `https://www.google.com/maps?q=${plant.lat},${plant.lng}`;
 
     item.innerHTML = `
-      <strong>${plant.common_name}</strong><br>
-      <a href="${mapLink}" target="_blank" rel="noopener">${plant.lat.toFixed(5)}, ${plant.lng.toFixed(5)}</a><br>
-      ${plant.submitter_note ? `<em>"${plant.submitter_note}"</em><br>` : ''}
-      ${photoUrl ? `<img src="${photoUrl}" alt="Submitted photo">` : ''}
+      <strong>${escapeHtml(plant.common_name)}</strong><br>
+      <a href="${encodeURI(mapLink)}" target="_blank" rel="noopener">${plant.lat.toFixed(5)}, ${plant.lng.toFixed(5)}</a><br>
+      ${plant.submitter_note ? `<em>"${escapeHtml(plant.submitter_note)}"</em><br>` : ''}
+      ${photoUrl ? `<img src="${escapeHtml(photoUrl)}" alt="Submitted photo">` : ''}
       <div class="actions">
         <button class="approve-btn">Approve</button>
         <button class="reject-btn">Reject</button>
@@ -179,7 +180,7 @@ async function loadSpeciesEditor(selectName) {
   });
 
   const select = document.getElementById('speciesSelect');
-  select.innerHTML = data.map(row => `<option value="${row.common_name}">${row.common_name}</option>`).join('');
+  select.innerHTML = data.map(row => `<option value="${escapeHtml(row.common_name)}">${escapeHtml(row.common_name)}</option>`).join('');
 
   const monthsContainer = document.getElementById('monthsCheckboxes');
   if (!monthsContainer.children.length) {
@@ -218,10 +219,10 @@ function populateSpeciesForm(commonName) {
     ? photos.map(p => `
         <div class="photo-thumb-wrap">
           <div class="photo-thumb">
-            <img src="${plantPhotoUrl(p.photo_path)}" alt="">
-            <button class="delete-photo-btn" data-photo-id="${p.id}" data-photo-path="${p.photo_path}">✕</button>
+            <img src="${escapeHtml(plantPhotoUrl(p.photo_path))}" alt="">
+            <button class="delete-photo-btn" data-photo-id="${escapeHtml(p.id)}" data-photo-path="${escapeHtml(p.photo_path)}">✕</button>
           </div>
-          <input class="photo-credit-input" type="text" placeholder="Photo credit (optional)" value="${p.credit || ''}" data-photo-id="${p.id}">
+          <input class="photo-credit-input" type="text" placeholder="Photo credit (optional)" value="${escapeHtml(p.credit)}" data-photo-id="${escapeHtml(p.id)}">
         </div>`).join('')
     : '<p class="empty-state">No extra photos yet.</p>';
 
@@ -249,8 +250,7 @@ document.getElementById('speciesPhotoUpload').addEventListener('change', async (
   let nextSortOrder = existing.length ? Math.max(...existing.map(p => p.sort_order)) + 1 : 0;
 
   for (const file of files) {
-    const ext = file.name.includes('.') ? file.name.split('.').pop() : 'jpg';
-    const photoPath = `plants/${encodeURIComponent(commonName)}/${crypto.randomUUID()}.${ext}`;
+    const photoPath = `plants/${encodeURIComponent(commonName)}/${crypto.randomUUID()}.${safeFileExt(file.name)}`;
 
     const { error: uploadError } = await supabase.storage.from('plant-photos').upload(photoPath, file);
     if (uploadError) {
@@ -308,7 +308,7 @@ async function loadAdminsList() {
   const { data, error } = await supabase.from('admins').select('*').order('created_at');
 
   if (error) {
-    list.innerHTML = `<p class="empty-state">Error loading admins: ${error.message}</p>`;
+    list.innerHTML = `<p class="empty-state">Error loading admins: ${escapeHtml(error.message)}</p>`;
     return;
   }
 
@@ -316,7 +316,7 @@ async function loadAdminsList() {
   data.forEach(admin => {
     const item = document.createElement('div');
     item.className = 'admin-list-item';
-    item.innerHTML = `<span>${admin.email}</span><button class="remove-admin-btn">Remove</button>`;
+    item.innerHTML = `<span>${escapeHtml(admin.email)}</span><button class="remove-admin-btn">Remove</button>`;
     item.querySelector('.remove-admin-btn').addEventListener('click', () => removeAdmin(admin.email));
     list.appendChild(item);
   });
@@ -369,7 +369,7 @@ async function loadEdiblePlantsEditor(selectId) {
   const select = document.getElementById('ediblePlantSelect');
   select.innerHTML =
     '<option value="__new__">+ Add new entry</option>' +
-    data.map(row => `<option value="${row.id}">${row.common_name}</option>`).join('');
+    data.map(row => `<option value="${escapeHtml(row.id)}">${escapeHtml(row.common_name)}</option>`).join('');
   select.onchange = () => populateEdiblePlantForm(select.value);
 
   const targetId = selectId && ediblePlantsById[selectId] ? selectId : (data.length ? data[0].id : '__new__');
@@ -392,10 +392,10 @@ function populateEdiblePlantForm(id) {
     ? photos.map(p => `
         <div class="photo-thumb-wrap">
           <div class="photo-thumb">
-            <img src="${plantPhotoUrl(p.photo_path)}" alt="">
-            <button class="delete-photo-btn" data-photo-id="${p.id}" data-photo-path="${p.photo_path}">✕</button>
+            <img src="${escapeHtml(plantPhotoUrl(p.photo_path))}" alt="">
+            <button class="delete-photo-btn" data-photo-id="${escapeHtml(p.id)}" data-photo-path="${escapeHtml(p.photo_path)}">✕</button>
           </div>
-          <input class="photo-credit-input" type="text" placeholder="Photo credit (optional)" value="${p.credit || ''}" data-photo-id="${p.id}">
+          <input class="photo-credit-input" type="text" placeholder="Photo credit (optional)" value="${escapeHtml(p.credit)}" data-photo-id="${escapeHtml(p.id)}">
         </div>`).join('')
     : '<p class="empty-state">No photos yet.</p>';
 
@@ -452,8 +452,7 @@ document.getElementById('ediblePlantPhotoUpload').addEventListener('change', asy
   let nextSortOrder = existing.length ? Math.max(...existing.map(p => p.sort_order)) + 1 : 0;
 
   for (const file of files) {
-    const ext = file.name.includes('.') ? file.name.split('.').pop() : 'jpg';
-    const photoPath = `edible-plants/${currentEdiblePlantId}/${crypto.randomUUID()}.${ext}`;
+    const photoPath = `edible-plants/${currentEdiblePlantId}/${crypto.randomUUID()}.${safeFileExt(file.name)}`;
 
     const { error: uploadError } = await supabase.storage.from('plant-photos').upload(photoPath, file);
     if (uploadError) {
@@ -504,7 +503,7 @@ async function loadPhotoSubmissions() {
     .order('created_at', { ascending: true });
 
   if (error) {
-    list.innerHTML = `<p class="empty-state">Error loading submissions: ${error.message}</p>`;
+    list.innerHTML = `<p class="empty-state">Error loading submissions: ${escapeHtml(error.message)}</p>`;
     return;
   }
 
@@ -533,10 +532,10 @@ async function loadPhotoSubmissions() {
         : 'Community Finds';
 
     item.innerHTML = `
-      <strong>${kindLabel} — ${targetLabel}</strong><br>
-      ${sub.photographer_name ? `By ${sub.photographer_name}<br>` : ''}
-      ${sub.submitter_note ? `<em>"${sub.submitter_note}"</em><br>` : ''}
-      ${photoUrl ? `<img src="${photoUrl}" alt="Submitted photo">` : ''}
+      <strong>${escapeHtml(kindLabel)} — ${escapeHtml(targetLabel)}</strong><br>
+      ${sub.photographer_name ? `By ${escapeHtml(sub.photographer_name)}<br>` : ''}
+      ${sub.submitter_note ? `<em>"${escapeHtml(sub.submitter_note)}"</em><br>` : ''}
+      ${photoUrl ? `<img src="${escapeHtml(photoUrl)}" alt="Submitted photo">` : ''}
       <div class="actions">
         <button class="approve-btn">Approve</button>
         <button class="reject-btn">Reject</button>

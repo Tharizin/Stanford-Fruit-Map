@@ -1,5 +1,16 @@
 import { supabase } from './supabaseClient.js';
 
+// Derives a safe storage-path extension from a user-chosen filename.
+// Filenames are attacker-controlled input (anyone can pick what they upload),
+// and the raw extension used to end up straight in a storage path and later
+// in an unescaped <img> attribute — a filename like `x.jpg"><script>...`
+// could break out of that attribute. Anchoring to a short alphanumeric
+// suffix makes that impossible regardless of what the caller names the file.
+export function safeFileExt(filename) {
+  const match = /\.([a-zA-Z0-9]{1,5})$/.exec(filename || '');
+  return match ? match[1].toLowerCase() : 'jpg';
+}
+
 // One row per species: icon, image, ripening window, months, description,
 // usage, plus any extra admin-uploaded photos beyond the cover `image`.
 export async function fetchPlantInfo() {
@@ -53,8 +64,7 @@ export async function submitSighting({ commonName, lat, lng, note, photoFile }) 
   let photoPath = null;
 
   if (photoFile) {
-    const ext = photoFile.name.includes('.') ? photoFile.name.split('.').pop() : 'jpg';
-    photoPath = `submissions/${crypto.randomUUID()}.${ext}`;
+    photoPath = `submissions/${crypto.randomUUID()}.${safeFileExt(photoFile.name)}`;
     const { error: uploadError } = await supabase.storage
       .from('plant-photos')
       .upload(photoPath, photoFile);
@@ -78,8 +88,7 @@ export async function submitSighting({ commonName, lat, lng, note, photoFile }) 
 // is filed into plant_photos/edible_plant_photos, or a fun photo appears
 // in the public gallery.
 export async function submitPhoto({ kind, targetType, targetId, note, photographerName, photoFile }) {
-  const ext = photoFile.name.includes('.') ? photoFile.name.split('.').pop() : 'jpg';
-  const photoPath = `photo-submissions/${crypto.randomUUID()}.${ext}`;
+  const photoPath = `photo-submissions/${crypto.randomUUID()}.${safeFileExt(photoFile.name)}`;
 
   const { error: uploadError } = await supabase.storage.from('plant-photos').upload(photoPath, photoFile);
   if (uploadError) throw uploadError;

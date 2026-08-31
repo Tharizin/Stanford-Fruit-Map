@@ -1,6 +1,7 @@
 import { buildIcon, initializeMap, updateMapTiles } from './mapConfig.js';
 import { fetchPlantInfo, fetchApprovedPlants, fetchEdiblePlants, fetchApprovedFunPhotos, plantPhotoUrl, submitSighting, submitPhoto } from './dataService.js';
 import { initEdiblePlants, initEdiblePlantModalClose } from './ediblePlants.js';
+import { escapeHtml } from './escapeHtml.js';
 
 const BASEMAP_KEY = 'fruitmap-basemap';
 const KNOWN_PAGES = ['map', 'gallery', 'edible', 'about', 'community'];
@@ -53,7 +54,7 @@ function addMarker(plant) {
   infoButton.setAttribute('data-type', plant.common_name);
 
   const popupDiv = L.DomUtil.create('div');
-  popupDiv.innerHTML = `<strong>${plant.common_name}</strong><br>`;
+  popupDiv.innerHTML = `<strong>${escapeHtml(plant.common_name)}</strong><br>`;
   popupDiv.appendChild(infoButton);
 
   marker.bindPopup(popupDiv);
@@ -116,7 +117,7 @@ function showOnMap(fruitType) {
 // just because nobody's gotten around to picking an official cover shot.
 function cardImage(info, fruitType) {
   const src = info.image || plantPhotoUrl((info.plant_photos || [])[0]?.photo_path);
-  return src ? `<img src="${src}" alt="${fruitType}">` : '<div class="edible-tile-placeholder" aria-hidden="true"></div>';
+  return src ? `<img src="${escapeHtml(src)}" alt="${escapeHtml(fruitType)}">` : '<div class="edible-tile-placeholder" aria-hidden="true"></div>';
 }
 
 function loadGallery(plants) {
@@ -134,8 +135,8 @@ function loadGallery(plants) {
     card.innerHTML = `
       ${cardImage(info, fruitType)}
       <div class="fruit-card-content">
-        <h3>${fruitType}</h3>
-        ${info.scientific_name ? `<p class="scientific-name">${info.scientific_name}</p>` : ''}
+        <h3>${escapeHtml(fruitType)}</h3>
+        ${info.scientific_name ? `<p class="scientific-name">${escapeHtml(info.scientific_name)}</p>` : ''}
       </div>
     `;
 
@@ -160,22 +161,22 @@ function openFruitDetailModal(fruitType) {
     <div class="edible-photo-strip">
       ${realPhotos.map(p => `
         <div class="photo-strip-item">
-          <img src="${p.src}" alt="${fruitType}">
-          ${p.credit ? `<p class="photo-credit">Photo: ${p.credit}</p>` : ''}
+          <img src="${escapeHtml(p.src)}" alt="${escapeHtml(fruitType)}">
+          ${p.credit ? `<p class="photo-credit">Photo: ${escapeHtml(p.credit)}</p>` : ''}
         </div>`).join('')}
       ${Array.from({ length: placeholderCount }).map(() => '<div class="photo-placeholder-lg">More ID photos coming soon</div>').join('')}
     </div>
-    <button class="share-photo-link" type="button" data-target-type="plant_info" data-target-id="${fruitType}" data-target-label="${fruitType}">+ Share a photo of this</button>
-    <h2>${fruitType}</h2>
-    ${info.scientific_name ? `<p class="scientific-name">${info.scientific_name}</p>` : ''}
-    <p class="ripening-line"><strong>Ripening:</strong> ${info.ripening || 'TBD'}</p>
+    <button class="share-photo-link" type="button" data-target-type="plant_info" data-target-id="${escapeHtml(fruitType)}" data-target-label="${escapeHtml(fruitType)}">+ Share a photo of this</button>
+    <h2>${escapeHtml(fruitType)}</h2>
+    ${info.scientific_name ? `<p class="scientific-name">${escapeHtml(info.scientific_name)}</p>` : ''}
+    <p class="ripening-line"><strong>Ripening:</strong> ${escapeHtml(info.ripening || 'TBD')}</p>
     <div class="info-box">
       <h4>Description</h4>
-      <p>${info.description || 'Coming soon.'}</p>
+      <p>${escapeHtml(info.description) || 'Coming soon.'}</p>
     </div>
     <div class="info-box">
       <h4>Usage</h4>
-      <p>${info.usage || 'Coming soon.'}</p>
+      <p>${escapeHtml(info.usage) || 'Coming soon.'}</p>
     </div>
     <button id="findOnMapBtn" class="find-on-map-btn" type="button">Find on Map</button>
   `;
@@ -272,10 +273,10 @@ async function loadCommunityFinds() {
     grid.innerHTML = photos.length
       ? photos.map(p => `
           <div class="community-tile">
-            <img src="${plantPhotoUrl(p.photo_path)}" alt="${p.submitter_note || 'Community photo'}">
+            <img src="${escapeHtml(plantPhotoUrl(p.photo_path))}" alt="${escapeHtml(p.submitter_note) || 'Community photo'}">
             <div class="community-tile-content">
-              ${p.submitter_note ? `<p class="community-caption">${p.submitter_note}</p>` : ''}
-              <p class="community-meta">${p.photographer_name ? `${p.photographer_name} — ` : ''}${formatFoundDate(p.created_at)}</p>
+              ${p.submitter_note ? `<p class="community-caption">${escapeHtml(p.submitter_note)}</p>` : ''}
+              <p class="community-meta">${p.photographer_name ? `${escapeHtml(p.photographer_name)} — ` : ''}${escapeHtml(formatFoundDate(p.created_at))}</p>
             </div>
           </div>`).join('')
       : '<p class="empty-state">No community photos yet — be the first to share one!</p>';
@@ -336,7 +337,7 @@ function populateSpeciesDropdown() {
   const select = document.getElementById('reportSpecies');
   const existingOptions = Object.keys(plantInfo).sort();
   select.innerHTML = '<option value="">Select a fruit...</option>' +
-    existingOptions.map(name => `<option value="${name}">${name}</option>`).join('') +
+    existingOptions.map(name => `<option value="${escapeHtml(name)}">${escapeHtml(name)}</option>`).join('') +
     '<option value="__other__">Other (fruit not listed)</option>';
 }
 
