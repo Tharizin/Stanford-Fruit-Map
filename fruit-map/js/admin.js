@@ -425,6 +425,10 @@ function populateEdiblePlantForm(id) {
   const uploadInput = document.getElementById('ediblePlantPhotoUpload');
   uploadInput.disabled = !currentEdiblePlantId;
   uploadInput.title = currentEdiblePlantId ? '' : 'Save the entry first, then add photos.';
+
+  const deleteBtn = document.getElementById('deleteEdiblePlantBtn');
+  deleteBtn.disabled = !currentEdiblePlantId;
+  deleteBtn.title = currentEdiblePlantId ? '' : 'Nothing to delete yet.';
 }
 
 document.getElementById('ediblePlantForm').addEventListener('submit', async (e) => {
@@ -457,6 +461,38 @@ document.getElementById('ediblePlantForm').addEventListener('submit', async (e) 
 
   statusEl.textContent = error ? `Error: ${error.message}` : 'Saved!';
   if (!error) await loadEdiblePlantsEditor(currentEdiblePlantId);
+});
+
+document.getElementById('deleteEdiblePlantBtn').addEventListener('click', async () => {
+  if (!currentEdiblePlantId) return;
+  const statusEl = document.getElementById('ediblePlantStatus');
+  const info = ediblePlantsById[currentEdiblePlantId];
+  const label = info?.common_name || 'this entry';
+
+  if (!confirm(`Delete "${label}" and all its photos? This can't be undone.`)) return;
+
+  const photos = info?.edible_plant_photos || [];
+  if (photos.length) {
+    const { error: storageError } = await supabase.storage
+      .from('plant-photos')
+      .remove(photos.map(p => p.photo_path));
+    if (storageError) {
+      statusEl.textContent = `Error deleting photos: ${storageError.message}`;
+      return;
+    }
+  }
+
+  // edible_plant_photos rows cascade-delete automatically via their FK,
+  // so removing the edible_plants row is enough to clean up the rest.
+  const { error } = await supabase.from('edible_plants').delete().eq('id', currentEdiblePlantId);
+  if (error) {
+    statusEl.textContent = `Error: ${error.message}`;
+    return;
+  }
+
+  statusEl.textContent = 'Deleted.';
+  currentEdiblePlantId = null;
+  await loadEdiblePlantsEditor();
 });
 
 document.getElementById('ediblePlantPhotoUpload').addEventListener('change', async (e) => {

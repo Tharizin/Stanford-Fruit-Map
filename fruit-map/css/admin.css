@@ -272,6 +272,20 @@ button:hover {
   border-bottom: none;
 }
 
+.delete-entry-btn {
+  margin-top: 10px;
+  background: transparent;
+  color: var(--color-danger);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: 6px 12px;
+}
+
+.delete-entry-btn:hover {
+  background: var(--color-danger);
+  color: var(--color-primary-contrast);
+}
+
 .admin-list-item .remove-admin-btn {
   background: transparent;
   color: var(--color-danger);
