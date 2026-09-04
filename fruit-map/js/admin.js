@@ -58,6 +58,17 @@ supabase.auth.onAuthStateChange((_event, session) => {
   renderAuthState(session);
 });
 
+// Supabase silently refreshes the access token in the background well
+// before it expires, which fires this same onAuthStateChange listener
+// again — not just on an actual login. Without this flag, every one of
+// those background refreshes triggered a full loadDashboard(), which
+// repopulates every open form field (including whatever the admin is
+// mid-typing into) straight from the database, wiping out unsaved edits.
+// Only the transition into the logged-in admin state should reload
+// everything; later re-fires while already logged in as admin are a
+// no-op here.
+let dashboardLoaded = false;
+
 async function renderAuthState(session) {
   const loginSection = document.getElementById('loginSection');
   const dashboard = document.getElementById('dashboard');
@@ -66,14 +77,19 @@ async function renderAuthState(session) {
     loginSection.style.display = 'none';
     dashboard.style.display = 'block';
     document.getElementById('loggedInAs').textContent = 'Logged in as admin';
-    await loadDashboard();
+    if (!dashboardLoaded) {
+      dashboardLoaded = true;
+      await loadDashboard();
+    }
   } else if (session?.user) {
+    dashboardLoaded = false;
     loginSection.style.display = 'flex';
     dashboard.style.display = 'none';
     document.getElementById('loginStatus').textContent =
       `Signed in as ${session.user.email}, which isn't an admin account.`;
     document.getElementById('wrongUserLogoutBtn').style.display = 'inline-block';
   } else {
+    dashboardLoaded = false;
     loginSection.style.display = 'flex';
     dashboard.style.display = 'none';
     document.getElementById('wrongUserLogoutBtn').style.display = 'none';
