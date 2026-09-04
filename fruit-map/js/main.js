@@ -8,6 +8,34 @@ const BASEMAP_KEY = 'fruitmap-basemap';
 const KNOWN_PAGES = ['map', 'gallery', 'edible', 'about', 'community'];
 let currentPage = 'map';
 
+// ─── Foraging Safety Warning ──────────────────────────────────
+// Shown the first time a session touches the map, fruit gallery, or
+// edible plants list — not on every single visit to those tabs, since
+// that would just train people to click past it without reading it.
+// "Don't show this again" persists across sessions via localStorage;
+// otherwise it comes back on the next fresh visit.
+const FORAGING_WARNING_KEY = 'fruitmap-hide-foraging-warning';
+const FORAGING_WARNING_PAGES = ['map', 'gallery', 'edible'];
+let foragingWarningShownThisSession = false;
+
+function maybeShowForagingWarning(pageId) {
+  if (!FORAGING_WARNING_PAGES.includes(pageId)) return;
+  if (foragingWarningShownThisSession) return;
+  if (localStorage.getItem(FORAGING_WARNING_KEY) === 'true') return;
+
+  foragingWarningShownThisSession = true;
+  document.getElementById('foragingWarningModal').classList.add('open');
+}
+
+function initForagingWarning() {
+  document.getElementById('foragingWarningDismissBtn').addEventListener('click', () => {
+    if (document.getElementById('foragingWarningDontShow').checked) {
+      localStorage.setItem(FORAGING_WARNING_KEY, 'true');
+    }
+    document.getElementById('foragingWarningModal').classList.remove('open');
+  });
+}
+
 let basemapStyle = localStorage.getItem(BASEMAP_KEY) || 'streets';
 const map = initializeMap(basemapStyle);
 
@@ -464,6 +492,7 @@ function initReportFlow() {
 function showPage(pageId) {
   if (!KNOWN_PAGES.includes(pageId)) return;
   currentPage = pageId;
+  maybeShowForagingWarning(pageId);
 
   document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
   document.getElementById(`${pageId}-page`).classList.add('active');
@@ -605,6 +634,11 @@ async function init() {
   initAboutSubnav();
   initEdiblePlantModalClose();
   initBasemapToggle();
+  initForagingWarning();
+  // Covers the plain, no-hash landing on the map page — the HTML already
+  // marks #map-page active by default, so showPage() (where this check
+  // normally lives) never actually runs for that case.
+  maybeShowForagingWarning(currentPage);
 }
 
 init();

@@ -40,6 +40,22 @@
   <a href="#" data-page="about" class="nav-link">About</a>
 </nav>
 
+<div id="foragingWarningModal" class="modal-overlay warning-modal-overlay">
+  <div class="modal warning-modal">
+    <div class="warning-modal-icon" aria-hidden="true">⚠️</div>
+    <p class="warning-modal-message">
+      <strong>WARNING:</strong> Eating poisonous plants has the potential to cause illness
+      or death – <strong>DO NOT</strong> eat any plant from this map unless you are 100% sure
+      you have correctly identified it.
+    </p>
+    <label class="warning-modal-checkbox">
+      <input type="checkbox" id="foragingWarningDontShow" />
+      Don't show this again
+    </label>
+    <button type="button" id="foragingWarningDismissBtn" class="warning-modal-dismiss-btn">I understand</button>
+  </div>
+</div>
+
   <!-- MAP PAGE -->
   <div id="map-page" class="page active">
     <div id="map-controls">
