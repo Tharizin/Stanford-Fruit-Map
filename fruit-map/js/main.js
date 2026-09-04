@@ -187,8 +187,8 @@ function openFruitDetailModal(fruitType) {
     showOnMap(fruitType);
   });
 
-  matchPhotoCreditWidths(content);
   document.getElementById('fruitDetailModal').classList.add('open');
+  matchPhotoCreditWidths(content);
 }
 
 function closeFruitDetailModal() {

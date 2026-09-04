@@ -57,8 +57,8 @@ export function openEdiblePlantModal(entry) {
     </div>
   `;
 
-  matchPhotoCreditWidths(content);
   document.getElementById('ediblePlantModal').classList.add('open');
+  matchPhotoCreditWidths(content);
 }
 
 export function initEdiblePlantModalClose() {
