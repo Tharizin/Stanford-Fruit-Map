@@ -1,5 +1,6 @@
 import { plantPhotoUrl } from './dataService.js';
 import { escapeHtml } from './escapeHtml.js';
+import { matchPhotoCreditWidths } from './photoStrip.js';
 
 function tileImage(entry) {
   const first = entry.edible_plant_photos[0];
@@ -56,6 +57,7 @@ export function openEdiblePlantModal(entry) {
     </div>
   `;
 
+  matchPhotoCreditWidths(content);
   document.getElementById('ediblePlantModal').classList.add('open');
 }
 

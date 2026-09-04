@@ -2,6 +2,7 @@ import { buildIcon, initializeMap, updateMapTiles } from './mapConfig.js';
 import { fetchPlantInfo, fetchApprovedPlants, fetchEdiblePlants, fetchApprovedFunPhotos, plantPhotoUrl, submitSighting, submitPhoto } from './dataService.js';
 import { initEdiblePlants, initEdiblePlantModalClose } from './ediblePlants.js';
 import { escapeHtml } from './escapeHtml.js';
+import { matchPhotoCreditWidths } from './photoStrip.js';
 
 const BASEMAP_KEY = 'fruitmap-basemap';
 const KNOWN_PAGES = ['map', 'gallery', 'edible', 'about', 'community'];
@@ -186,6 +187,7 @@ function openFruitDetailModal(fruitType) {
     showOnMap(fruitType);
   });
 
+  matchPhotoCreditWidths(content);
   document.getElementById('fruitDetailModal').classList.add('open');
 }
 

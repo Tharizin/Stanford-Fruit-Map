@@ -766,7 +766,7 @@ h1, h2, h3 {
 .photo-strip-item {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   flex-shrink: 0;
 }
 
@@ -774,7 +774,8 @@ h1, h2, h3 {
   margin: 4px 0 0;
   font-size: 11px;
   color: var(--color-text-muted);
-  text-align: center;
+  text-align: left;
+  overflow-wrap: break-word;
 }
 
 .photo-placeholder-lg {
