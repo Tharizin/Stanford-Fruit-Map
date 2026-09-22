@@ -216,6 +216,25 @@ h1, h2, h3 {
   background: var(--color-bg);
 }
 
+/* "My location" map control — Leaflet's topright corner is flush with
+   the very top of #map, which sits directly under the fixed navbar
+   (z-index 2000); without this the control renders underneath it and
+   the navbar swallows the click. */
+.locate-control {
+  margin-top: calc(var(--nav-height) + 12px) !important;
+}
+
+.locate-control-btn {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text);
+}
+
+.locate-control-btn.active {
+  color: #4285f4;
+}
+
 /* Map controls (season filter + basemap toggle) */
 #map-controls {
   position: absolute;
