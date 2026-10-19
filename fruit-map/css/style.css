@@ -235,6 +235,31 @@ h1, h2, h3 {
   color: #4285f4;
 }
 
+/* "My location" dot + heading cone (the divIcon built in mapConfig.js).
+   The cone starts hidden and is only revealed once a real device
+   orientation reading comes in, via its own inline style.display. */
+.locate-dot-icon .locate-heading {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: none;
+  transform-origin: center center;
+  pointer-events: none;
+}
+
+.locate-dot-icon .locate-dot {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 16px;
+  height: 16px;
+  margin: -8px 0 0 -8px;
+  background: #4285f4;
+  border: 3px solid #fff;
+  border-radius: 50%;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+}
+
 /* Map controls (season filter + basemap toggle) */
 #map-controls {
   position: absolute;

@@ -42,19 +42,51 @@ function tileOptions(basemapStyle) {
   return basemapStyle === 'streets' ? { ...base, tileSize: 512, zoomOffset: -1 } : base;
 }
 
+// The dot + heading cone are one HTML structure (a Leaflet divIcon)
+// instead of separate circleMarkers, specifically so the cone can be
+// rotated with a plain CSS transform. The accuracy ring stays a real
+// geographic L.circle (radius in meters) so it scales correctly as the
+// map zooms, which a pixel-sized divIcon element can't do on its own.
+const LOCATION_ICON = L.divIcon({
+  className: 'locate-dot-icon',
+  html: `
+    <svg class="locate-heading" viewBox="-30 -30 60 60" width="60" height="60">
+      <path d="M 0 0 L -13 -27 A 29 29 0 0 1 13 -27 Z" fill="#4285f4" fill-opacity="0.35"></path>
+    </svg>
+    <div class="locate-dot"></div>`,
+  iconSize: [60, 60],
+  iconAnchor: [30, 30],
+});
+
+// Reads a compass heading (degrees clockwise from true north) out of a
+// DeviceOrientationEvent. iOS exposes this directly as
+// `webkitCompassHeading`; everything else reports `alpha`, which
+// increases counter-clockwise, so it needs flipping to match. Returns
+// null when the event doesn't carry usable heading data (no
+// magnetometer, or the browser only fires relative — non-absolute —
+// events).
+function headingFromOrientationEvent(e) {
+  if (typeof e.webkitCompassHeading === 'number') return e.webkitCompassHeading;
+  if (e.absolute && typeof e.alpha === 'number') return (360 - e.alpha) % 360;
+  return null;
+}
+
 // "My location" control — a live-updating blue dot with an accuracy
-// radius, the same convention Google Maps uses, built on Leaflet's own
-// map.locate()/map.stopLocate() wrapper around the browser Geolocation
-// API. Clicking the button centers/zooms to the first fix and starts
-// watching; clicking again turns it off. Only that first fix ever moves
-// the map — later position updates just move the dot, so a user who's
-// panned elsewhere doesn't get yanked back while their location keeps
-// updating live in the background.
+// radius and a heading cone, the same convention Google Maps uses, built
+// on Leaflet's own map.locate()/map.stopLocate() wrapper around the
+// browser Geolocation API plus the device orientation API for which way
+// the phone itself is pointing. Clicking the button centers/zooms to the
+// first fix and starts watching; clicking again turns it off. Only that
+// first fix ever moves the map — later position updates just move the
+// dot, so a user who's panned elsewhere doesn't get yanked back while
+// their location keeps updating live in the background.
 function addLocateControl(map) {
   let locationMarker = null;
   let accuracyCircle = null;
   let watching = false;
   let button = null;
+  let orientationHandler = null;
+  let orientationEventName = null;
 
   function clearLocationLayers() {
     if (locationMarker) { map.removeLayer(locationMarker); locationMarker = null; }
@@ -63,13 +95,7 @@ function addLocateControl(map) {
 
   function onLocationFound(e) {
     if (!locationMarker) {
-      locationMarker = L.circleMarker(e.latlng, {
-        radius: 8,
-        color: '#fff',
-        weight: 3,
-        fillColor: '#4285f4',
-        fillOpacity: 1,
-      }).addTo(map);
+      locationMarker = L.marker(e.latlng, { icon: LOCATION_ICON, interactive: false, zIndexOffset: 1000 }).addTo(map);
       accuracyCircle = L.circle(e.latlng, {
         radius: e.accuracy,
         color: '#4285f4',
@@ -89,7 +115,48 @@ function addLocateControl(map) {
     watching = false;
     button.classList.remove('active');
     clearLocationLayers();
+    stopWatchingHeading();
     alert(e.message || "Couldn't get your location. Please check your browser's location permissions.");
+  }
+
+  function updateHeadingCone(heading) {
+    if (!locationMarker) return;
+    const svg = locationMarker.getElement()?.querySelector('.locate-heading');
+    if (!svg) return;
+    svg.style.display = 'block';
+    svg.style.transform = `rotate(${heading}deg)`;
+  }
+
+  function onOrientation(e) {
+    const heading = headingFromOrientationEvent(e);
+    if (heading !== null) updateHeadingCone(heading);
+  }
+
+  // iOS 13+ requires an explicit, user-gesture-triggered permission
+  // prompt before orientation events fire at all; everywhere else they
+  // just work. "deviceorientationabsolute" (true-north-relative) is
+  // preferred over plain "deviceorientation" where supported.
+  function startWatchingHeading() {
+    orientationEventName = 'ondeviceorientationabsolute' in window ? 'deviceorientationabsolute' : 'deviceorientation';
+    orientationHandler = onOrientation;
+
+    if (typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission === 'function') {
+      DeviceOrientationEvent.requestPermission()
+        .then(state => {
+          if (state === 'granted') window.addEventListener(orientationEventName, orientationHandler);
+        })
+        .catch(() => {});
+    } else if ('DeviceOrientationEvent' in window) {
+      window.addEventListener(orientationEventName, orientationHandler);
+    }
+  }
+
+  function stopWatchingHeading() {
+    if (orientationHandler && orientationEventName) {
+      window.removeEventListener(orientationEventName, orientationHandler);
+    }
+    orientationHandler = null;
+    orientationEventName = null;
   }
 
   map.on('locationfound', onLocationFound);
@@ -117,11 +184,13 @@ function addLocateControl(map) {
             watching = false;
             map.stopLocate();
             clearLocationLayers();
+            stopWatchingHeading();
             button.classList.remove('active');
           } else {
             watching = true;
             button.classList.add('active');
             map.locate({ watch: true, enableHighAccuracy: true, maxZoom: 18 });
+            startWatchingHeading();
           }
         });
 
