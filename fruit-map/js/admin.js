@@ -99,7 +99,7 @@ async function renderAuthState(session) {
 // ─── Pending sightings ──────────────────────────────────────
 
 async function loadDashboard() {
-  await Promise.all([loadPending(), loadSpeciesEditor(), loadAdminsList(), loadEdiblePlantsEditor(), loadPhotoSubmissions()]);
+  await Promise.all([loadPending(), loadMissingReports(), loadSpeciesEditor(), loadAdminsList(), loadEdiblePlantsEditor(), loadPhotoSubmissions()]);
 }
 
 async function loadPending() {
@@ -165,6 +165,68 @@ async function approvePlant(plant) {
   }
 
   await reviewPlant(plant.id, 'approved');
+}
+
+// ─── Missing plant reports ────────────────────────────────────
+// Unlike pending sightings, there's nothing to "approve" here — a report
+// just means a visitor thinks a specific plant is gone. Resolving or
+// dismissing a report doesn't touch the actual plants/plant_info rows;
+// go verify in person (or on the map) and edit/remove those separately.
+
+async function loadMissingReports() {
+  const list = document.getElementById('missingReportsList');
+  const { data, error } = await supabase
+    .from('missing_plant_reports')
+    .select('*')
+    .eq('status', 'pending')
+    .order('created_at', { ascending: true });
+
+  if (error) {
+    list.innerHTML = `<p class="empty-state">Error loading reports: ${escapeHtml(error.message)}</p>`;
+    return;
+  }
+
+  if (!data.length) {
+    list.innerHTML = '<p class="empty-state">No pending missing-plant reports.</p>';
+    return;
+  }
+
+  list.innerHTML = '';
+  data.forEach(report => {
+    const item = document.createElement('div');
+    item.className = 'pending-item';
+    const mapLink = `https://www.google.com/maps?q=${report.lat},${report.lng}`;
+
+    item.innerHTML = `
+      <strong>${escapeHtml(report.common_name)}</strong> reported missing<br>
+      <a href="${encodeURI(mapLink)}" target="_blank" rel="noopener">${report.lat.toFixed(5)}, ${report.lng.toFixed(5)}</a><br>
+      ${report.note ? `<em>"${escapeHtml(report.note)}"</em><br>` : ''}
+      <div class="actions">
+        <button class="approve-btn">Mark Resolved</button>
+        <button class="reject-btn">Dismiss</button>
+      </div>
+    `;
+
+    item.querySelector('.approve-btn').addEventListener('click', () => reviewMissingReport(report.id, 'resolved'));
+    item.querySelector('.reject-btn').addEventListener('click', () => reviewMissingReport(report.id, 'dismissed'));
+
+    list.appendChild(item);
+  });
+}
+
+async function reviewMissingReport(id, status) {
+  const statusEl = document.getElementById('missingReportsStatus');
+  const { error } = await supabase
+    .from('missing_plant_reports')
+    .update({ status, reviewed_at: new Date().toISOString() })
+    .eq('id', id);
+
+  if (error) {
+    statusEl.textContent = `Error: ${error.message}`;
+    return;
+  }
+  statusEl.textContent = '';
+  await loadMissingReports();
 }
 
 async function reviewPlant(id, status) {

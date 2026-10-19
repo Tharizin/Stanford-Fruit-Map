@@ -30,8 +30,9 @@
 -- plant_photos and edible_plant_photos for photo attribution, and
 -- supabase/migrations/013_security_hardening.sql for public-launch hardening
 -- (input length/range caps, a pending-submission flood cap, and storage
--- upload restrictions) — all already baked into this file below for fresh
--- installs.
+-- upload restrictions), and supabase/migrations/014_missing_plant_reports.sql
+-- to add the missing_plant_reports table for the "Report Missing" flow —
+-- all already baked into this file below for fresh installs.
 
 -- ────────────────────────────────────────────────────────────
 -- plant_info: one row per fruit species.
@@ -98,6 +99,57 @@ $$;
 create trigger plants_pending_cap
   before insert on plants
   for each row execute function public.check_plants_pending_cap();
+
+-- ────────────────────────────────────────────────────────────
+-- missing_plant_reports: a visitor flagging that a tree/species they
+-- expected to see is no longer there. Kept separate from `plants` since
+-- it isn't a location to approve onto the map — it's a tip for an admin
+-- to go verify and then manually remove/update the actual plant entry.
+-- ────────────────────────────────────────────────────────────
+create table missing_plant_reports (
+  id          uuid primary key default gen_random_uuid(),
+  common_name text not null check (char_length(common_name) <= 100),
+  lat         double precision not null check (lat between -90 and 90),
+  lng         double precision not null check (lng between -180 and 180),
+  note        text check (note is null or char_length(note) <= 1000),
+  status      text not null default 'pending' check (status in ('pending', 'resolved', 'dismissed')),
+  created_at  timestamptz not null default now(),
+  reviewed_at timestamptz
+);
+create index missing_plant_reports_status_idx on missing_plant_reports (status);
+
+alter table missing_plant_reports enable row level security;
+
+create policy "anyone can submit a pending missing report"
+  on missing_plant_reports for insert
+  with check (status = 'pending');
+
+create policy "missing reports readable by admin"
+  on missing_plant_reports for select
+  using (is_admin());
+
+create policy "missing reports editable by admin"
+  on missing_plant_reports for update
+  using (is_admin())
+  with check (is_admin());
+
+create policy "missing reports deletable by admin"
+  on missing_plant_reports for delete
+  using (is_admin());
+
+create or replace function public.check_missing_reports_pending_cap()
+returns trigger
+language plpgsql
+as $$
+begin
+  perform public.enforce_pending_cap('public.missing_plant_reports', 500);
+  return new;
+end;
+$$;
+
+create trigger missing_plant_reports_pending_cap
+  before insert on missing_plant_reports
+  for each row execute function public.check_missing_reports_pending_cap();
 
 -- ────────────────────────────────────────────────────────────
 -- admins: membership table — anyone listed here is a site admin.

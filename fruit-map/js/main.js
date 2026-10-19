@@ -1,5 +1,5 @@
 import { buildIcon, initializeMap, updateMapTiles } from './mapConfig.js';
-import { fetchPlantInfo, fetchApprovedPlants, fetchEdiblePlants, fetchApprovedFunPhotos, plantPhotoUrl, submitSighting, submitPhoto } from './dataService.js';
+import { fetchPlantInfo, fetchApprovedPlants, fetchEdiblePlants, fetchApprovedFunPhotos, plantPhotoUrl, submitSighting, submitMissingReport, submitPhoto } from './dataService.js';
 import { initEdiblePlants, initEdiblePlantModalClose } from './ediblePlants.js';
 import { escapeHtml } from './escapeHtml.js';
 import { matchPhotoCreditWidths } from './photoStrip.js';
@@ -363,12 +363,46 @@ function initFunPhotoFlow() {
 
 // ─── Report a Sighting ──────────────────────────────────────
 
-function populateSpeciesDropdown() {
+let reportMode = 'new'; // 'new' | 'missing'
+
+// A missing-plant report can only point at a species already known to
+// exist somewhere on the map, so the "Other (fruit not listed)" option
+// only makes sense in 'new' mode.
+function populateSpeciesDropdown(includeOther = true) {
   const select = document.getElementById('reportSpecies');
+  const previousValue = select.value;
   const existingOptions = Object.keys(plantInfo).sort();
   select.innerHTML = '<option value="">Select a fruit...</option>' +
     existingOptions.map(name => `<option value="${escapeHtml(name)}">${escapeHtml(name)}</option>`).join('') +
-    '<option value="__other__">Other (fruit not listed)</option>';
+    (includeOther ? '<option value="__other__">Other (fruit not listed)</option>' : '');
+  if ([...select.options].some(o => o.value === previousValue)) select.value = previousValue;
+}
+
+function setReportMode(mode) {
+  reportMode = mode;
+  const isMissing = mode === 'missing';
+
+  document.querySelectorAll('.report-mode-toggle button').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.mode === mode);
+  });
+
+  document.getElementById('reportModalTitle').textContent = isMissing
+    ? 'Report a Missing Plant'
+    : 'Report a Fruit Sighting';
+  document.getElementById('reportSpeciesLabel').textContent = isMissing
+    ? "Which plant's missing?"
+    : 'Fruit type';
+  document.getElementById('reportLocationLabel').textContent = isMissing
+    ? 'Where was it?'
+    : 'Location';
+  document.getElementById('reportNote').placeholder = isMissing
+    ? 'e.g. the tree behind the library seems to have been removed'
+    : 'e.g. behind the library, near the bike racks';
+  document.getElementById('reportPhotoField').style.display = isMissing ? 'none' : 'block';
+  document.getElementById('reportSubmitBtn').textContent = isMissing ? 'Submit Report' : 'Submit Sighting';
+
+  populateSpeciesDropdown(!isMissing);
+  document.getElementById('reportNewSpeciesField').style.display = 'none';
 }
 
 function openReportModal() {
@@ -376,7 +410,7 @@ function openReportModal() {
   document.getElementById('reportForm').style.display = 'flex';
   document.getElementById('reportSuccess').style.display = 'none';
   document.getElementById('reportForm').reset();
-  document.getElementById('reportNewSpeciesField').style.display = 'none';
+  setReportMode('new');
   pickedLocation = null;
   pickingLocation = false;
   updateLocationStatus();
@@ -416,6 +450,10 @@ function initReportFlow() {
   document.getElementById('reportSpecies').addEventListener('change', (e) => {
     const isOther = e.target.value === '__other__';
     document.getElementById('reportNewSpeciesField').style.display = isOther ? 'block' : 'none';
+  });
+
+  document.querySelectorAll('.report-mode-toggle button').forEach(btn => {
+    btn.addEventListener('click', () => setReportMode(btn.dataset.mode));
   });
 
   document.getElementById('pickLocationBtn').addEventListener('click', () => {
@@ -463,22 +501,30 @@ function initReportFlow() {
     }
 
     const note = document.getElementById('reportNote').value.trim();
-    const photoFile = document.getElementById('reportPhoto').files[0] || null;
+    const photoFile = reportMode === 'missing' ? null : (document.getElementById('reportPhoto').files[0] || null);
     const submitBtn = document.getElementById('reportSubmitBtn');
 
     submitBtn.disabled = true;
     submitBtn.textContent = 'Submitting...';
 
     try {
-      await submitSighting({ commonName, lat: pickedLocation.lat, lng: pickedLocation.lng, note, photoFile });
+      if (reportMode === 'missing') {
+        await submitMissingReport({ commonName, lat: pickedLocation.lat, lng: pickedLocation.lng, note });
+        document.getElementById('reportSuccessMessage').textContent =
+          "Thanks! Your report has been submitted and an admin will take a look.";
+      } else {
+        await submitSighting({ commonName, lat: pickedLocation.lat, lng: pickedLocation.lng, note, photoFile });
+        document.getElementById('reportSuccessMessage').textContent =
+          "Thanks! Your sighting has been submitted and will appear on the map once it's reviewed.";
+      }
       document.getElementById('reportForm').style.display = 'none';
       document.getElementById('reportSuccess').style.display = 'block';
     } catch (err) {
       console.error(err);
-      alert('Something went wrong submitting your sighting. Please try again.');
+      alert(`Something went wrong submitting your ${reportMode === 'missing' ? 'report' : 'sighting'}. Please try again.`);
     } finally {
       submitBtn.disabled = false;
-      submitBtn.textContent = 'Submit Sighting';
+      submitBtn.textContent = reportMode === 'missing' ? 'Submit Report' : 'Submit Sighting';
     }
   });
 }

@@ -101,10 +101,15 @@
     <div id="reportModal" class="modal-overlay">
       <div class="modal">
         <button id="closeReportModal" class="modal-close">✕</button>
-        <h2>Report a Fruit Sighting</h2>
+        <h2 id="reportModalTitle">Report a Fruit Sighting</h2>
+
+        <div class="report-mode-toggle">
+          <button type="button" data-mode="new" class="active">New Sighting</button>
+          <button type="button" data-mode="missing">Report Missing</button>
+        </div>
 
         <form id="reportForm">
-          <label for="reportSpecies">Fruit type</label>
+          <label for="reportSpecies" id="reportSpeciesLabel">Fruit type</label>
           <select id="reportSpecies" required></select>
 
           <div id="reportNewSpeciesField">
@@ -112,7 +117,7 @@
             <input type="text" id="reportNewSpeciesName" placeholder="e.g. Mulberry" />
           </div>
 
-          <label>Location</label>
+          <label id="reportLocationLabel">Location</label>
           <p id="reportLocationStatus"></p>
           <button type="button" id="pickLocationBtn">Pick Location on Map</button>
 
@@ -125,18 +130,33 @@
           <label for="reportNote">Notes (optional)</label>
           <textarea id="reportNote" placeholder="e.g. behind the library, near the bike racks"></textarea>
 
-          <label for="reportPhoto">Photo (optional)</label>
-          <input type="file" id="reportPhoto" accept="image/*" />
+          <div id="reportPhotoField">
+            <label for="reportPhoto">Photo (optional)</label>
+            <input type="file" id="reportPhoto" accept="image/*" />
+          </div>
 
           <button type="submit" id="reportSubmitBtn">Submit Sighting</button>
         </form>
 
         <div id="reportSuccess">
-          <p>Thanks! Your sighting has been submitted and will appear on the map once it's reviewed.</p>
+          <p id="reportSuccessMessage">Thanks! Your sighting has been submitted and will appear on the map once it's reviewed.</p>
           <button id="reportDoneBtn">Close</button>
         </div>
       </div>
     </div>
+  </div>
+
+  <!-- Site-wide feedback/bug-report shortcut — same mailto as the FAQ's
+       "found a bug" answer, just reachable from every page. -->
+  <div class="feedback-wrap">
+    <a class="feedback-button" href="mailto:echamb@stanford.edu?subject=Fruit%20Map%20Feedback" aria-label="Report a problem or share feedback">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 11.5a8.5 8.5 0 0 1-8.5 8.5c-1.35 0-2.63-.32-3.76-.9L3 21l1.9-5.74A8.5 8.5 0 1 1 21 11.5Z" />
+        <path d="M12 8v4" />
+        <path d="M12 16h.01" />
+      </svg>
+    </a>
+    <span class="feedback-tooltip">Found a bug, or have feedback? Let me know!</span>
   </div>
 
   <!-- Support the project. Swap in your real PayPal.Me / donation link. -->
@@ -362,8 +382,15 @@
 
         <div class="faq-item">
           <h3>I've discovered a site bug or have feedback of any kind — where should I share this information?</h3>
-          <p>Please <a href="mailto:echamb@stanford.edu?subject=Fruit%20Map%20Feedback">send me an email</a> —
-            I'd love to hear about it!</p>
+          <p>Use the feedback button in the bottom-left corner of any page, or just email me directly — I'd love to hear about it!</p>
+          <a class="faq-feedback-btn" href="mailto:echamb@stanford.edu?subject=Fruit%20Map%20Feedback">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 11.5a8.5 8.5 0 0 1-8.5 8.5c-1.35 0-2.63-.32-3.76-.9L3 21l1.9-5.74A8.5 8.5 0 1 1 21 11.5Z" />
+              <path d="M12 8v4" />
+              <path d="M12 16h.01" />
+            </svg>
+            Share feedback
+          </a>
         </div>
       </div>
 
@@ -382,6 +409,7 @@
 
         <h2>Special Thanks To</h2>
         <ul>
+          <li>My friends, who graciously tolerated many fruit-related digressions</li>
           <li>Stanford Grounds & Landscaping for maintaining these beautiful fruit trees</li>
           <li>The Stanford community for their enthusiasm and feedback</li>
           <li>Preston Seay, for teaching me how to get a website online and use GitHub</li>

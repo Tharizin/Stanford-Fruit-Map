@@ -81,6 +81,19 @@ export async function submitSighting({ commonName, lat, lng, note, photoFile }) 
   if (error) throw error;
 }
 
+// A report that a tree/species a visitor expected to find is no longer
+// there. Separate from submitSighting() — this isn't a location to add
+// to the map, it's a tip for an admin to go verify in person.
+export async function submitMissingReport({ commonName, lat, lng, note }) {
+  const { error } = await supabase.from('missing_plant_reports').insert({
+    common_name: commonName,
+    lat,
+    lng,
+    note: note || null,
+  });
+  if (error) throw error;
+}
+
 // A visitor-submitted photo — either an ID photo for a specific species
 // (targetType/targetId set, from that plant's detail modal) or a fun photo
 // for the community gallery (caption via `note`, photographerName).
