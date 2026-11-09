@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://unpkg.com https://esm.sh https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline' https://unpkg.com https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://unpkg.com https://api.maptiler.com https://khddpcovrmyixweoumqv.supabase.co https://www.google-analytics.com; connect-src 'self' https://khddpcovrmyixweoumqv.supabase.co https://api.maptiler.com https://www.google-analytics.com https://*.google-analytics.com https://www.googletagmanager.com; object-src 'none'; base-uri 'self'; frame-ancestors 'self';">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://unpkg.com https://esm.sh https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline' https://unpkg.com https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://unpkg.com https://api.maptiler.com https://khddpcovrmyixweoumqv.supabase.co https://www.google-analytics.com; connect-src 'self' https://khddpcovrmyixweoumqv.supabase.co https://api.maptiler.com https://www.google-analytics.com https://*.google-analytics.com https://www.googletagmanager.com; frame-src https://www.googletagmanager.com; object-src 'none'; base-uri 'self'; frame-ancestors 'self';">
   <meta http-equiv="X-Content-Type-Options" content="nosniff">
   <meta name="referrer" content="strict-origin-when-cross-origin">
   <title>Stanford Fruit Map</title>
@@ -14,13 +14,17 @@
   <link rel="stylesheet" href="css/style.css" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha384-sHL9NAb7lN7rfvG5lfHpm643Xkcjzp4jFvuavGOndn6pjVqS6ny56CAt3nsEVT4H" crossorigin="anonymous" />
 
-  <!-- Google tag (gtag.js) — the init call lives in ga.js rather than
+  <!-- Google Tag Manager — the init call lives in gtm.js rather than
        inline, since the site's CSP intentionally has no 'unsafe-inline'
        in script-src (that's a real XSS protection, not boilerplate). -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-VNWRNFLHS0"></script>
-  <script src="../ga.js"></script>
+  <script src="../gtm.js"></script>
 </head>
 <body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WT5KM7VB"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+
   <!-- Navigation Bar -->
 <nav id="navbar">
   <a href="../index.html" class="nav-brand" style="text-decoration: none; color: inherit;">
