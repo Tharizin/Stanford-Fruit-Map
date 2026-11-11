@@ -1,5 +1,3 @@
-import { MAPTILER_API_KEY } from './mapTilerConfig.js';
-
 // Builds a Leaflet icon from a species' icon_key (e.g. "Apple" -> icons/apple.png).
 // A null/missing icon_key falls back to Leaflet's default marker pin, so
 // species without custom artwork still show up on the map.
@@ -13,33 +11,28 @@ export function buildIcon(iconKey) {
   });
 }
 
-// "basic-v2" was picked deliberately over MapTiler's other styles: it's
-// the one with no amenity/POI icon clutter (no parking/food/shop pins),
-// while still labeling every street and the main campus building name at
-// a legible size — the combination this map actually needs (find a street,
-// not browse nearby coffee shops). "bright-v2" and "outdoor-v2" both label
-// buildings too, but bury them under dozens of icons; "streets-v2" is
-// clean but labels fewer streets at a smaller size.
+// Free, no-API-key, no-quota tile sources — switched off MapTiler once its
+// free plan ran out. OpenStreetMap itself is street-map data only (no
+// satellite imagery), so the "Satellite" toggle pairs it with Esri's free
+// World Imagery service instead; note Esri's tile URLs are ordered
+// {z}/{y}/{x}, not the usual {z}/{x}/{y}.
 const TILE_SOURCES = {
-  streets: `https://api.maptiler.com/maps/basic-v2/{z}/{x}/{y}{r}.png?key=${MAPTILER_API_KEY}`,
-  satellite: `https://api.maptiler.com/tiles/satellite-v2/{z}/{x}/{y}.jpg?key=${MAPTILER_API_KEY}`,
+  streets: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+  satellite: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
 };
 
-const TILE_ATTRIBUTION = '&copy; <a href="https://www.maptiler.com/copyright/" target="_blank" rel="noopener">MapTiler</a> &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors';
+const TILE_ATTRIBUTION = {
+  streets: '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors',
+  satellite: 'Tiles &copy; Esri — Source: Esri, Maxar, Earthstar Geographics, and the GIS User Community',
+};
 
 let activeTileLayer = null;
 
-// MapTiler's "-v2" styles are rendered from vector tiles at a native 512px
-// tile size, not the classic 256px raster convention. Without
-// tileSize/zoomOffset, Leaflet requests them as 256px tiles and everything
-// ends up rendered one zoom level too coarse.
 function tileOptions(basemapStyle) {
-  const base = {
-    maxZoom: 20,
-    detectRetina: true,
-    attribution: TILE_ATTRIBUTION,
+  return {
+    maxZoom: 19,
+    attribution: TILE_ATTRIBUTION[basemapStyle] || TILE_ATTRIBUTION.streets,
   };
-  return basemapStyle === 'streets' ? { ...base, tileSize: 512, zoomOffset: -1 } : base;
 }
 
 // The dot + heading cone are one HTML structure (a Leaflet divIcon)
